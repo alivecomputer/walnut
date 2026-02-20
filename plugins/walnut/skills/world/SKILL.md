@@ -20,16 +20,21 @@ The squirrel reads the system, pulls from APIs if available, and shows the world
 
 ## Boot Sequence
 
-Session-start hook has already run. Read its output for system state.
+Session-start hook has already run. Read its output for system state. **System version is the first check. Always.**
 
 ### State Detection
 
-| State | Detected By | Route To |
-|-------|-------------|----------|
-| `fresh` | No `.claude/CLAUDE.md` | → [[setup]] |
-| `v3` | v3 rules found | → [[upgrade]] |
-| `v4` | system.md present, no key.md | → [[upgrade]] |
-| `v1` | squirrels.md + world.md + worldbuilder.md | → Actionable surface |
+| State | Detected By | Action |
+|-------|-------------|--------|
+| `fresh` | No `.claude/CLAUDE.md` | → [[setup]] immediately |
+| `v3` | v3 rules found | → [[upgrade]] immediately |
+| `v4` | system.md present, no key.md | → [[upgrade]] immediately |
+| `v1` + migration needed | v1 rules but walnuts missing key.md | → [[upgrade]] for remaining walnuts |
+| `v1` clean | Everything current | → Actionable surface |
+
+**No menu. No "would you like to upgrade?"** If the system is old, the upgrade runs. The worldbuilder can't use the dashboard on stale architecture — fix it first, then show the world.
+
+The only prompt is at the start of upgrade: a quick "this takes ~5 minutes, ready?" So they know what's happening. Then it runs.
 
 ---
 

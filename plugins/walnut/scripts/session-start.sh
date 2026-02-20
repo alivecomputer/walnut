@@ -44,23 +44,35 @@ if [ -n "${CLAUDE_ENV_FILE:-}" ]; then
 fi
 
 # ── Detect system version ───────────────────────────────
-# v1 (Walnut): squirrels.md + world.md + worldbuilder.md in rules
-# v4 (Walnut 4): system.md in rules, no squirrels.md
-# v3 (Unlimited Elephant): behaviors.md, conventions.md etc
-# fresh: no .claude/CLAUDE.md at all
+# Fast path: read from world key.md if it exists
+# Fallback: scan rules files to determine version
 
 SYSTEM_VERSION="unknown"
+MIGRATION_REMAINING=0
 
-if [ -f "$WORLD_ROOT/.claude/rules/squirrels.md" ] && [ -f "$WORLD_ROOT/.claude/rules/world.md" ]; then
-  SYSTEM_VERSION="v1"
-elif [ -f "$WORLD_ROOT/.claude/rules/system.md" ]; then
-  SYSTEM_VERSION="v4"
-elif [ -f "$WORLD_ROOT/.claude/rules/behaviors.md" ] || [ -f "$WORLD_ROOT/.claude/rules/conventions.md" ]; then
-  SYSTEM_VERSION="v3"
-elif [ ! -f "$WORLD_ROOT/.claude/CLAUDE.md" ]; then
-  SYSTEM_VERSION="fresh"
-else
-  SYSTEM_VERSION="v3"
+# Fast path — world key.md has system.version
+if [ -f "$WORLD_ROOT/key.md" ]; then
+  KEY_VERSION=$(grep "version:" "$WORLD_ROOT/key.md" 2>/dev/null | head -1 | sed 's/.*version: *//')
+  if [ -n "$KEY_VERSION" ]; then
+    SYSTEM_VERSION="v1"
+    MIGRATION_REMAINING=$(grep "remaining:" "$WORLD_ROOT/key.md" 2>/dev/null | head -1 | sed 's/.*remaining: *//')
+    MIGRATION_REMAINING="${MIGRATION_REMAINING:-0}"
+  fi
+fi
+
+# Fallback — scan rules files
+if [ "$SYSTEM_VERSION" = "unknown" ]; then
+  if [ -f "$WORLD_ROOT/.claude/rules/squirrels.md" ] && [ -f "$WORLD_ROOT/.claude/rules/world.md" ]; then
+    SYSTEM_VERSION="v1"
+  elif [ -f "$WORLD_ROOT/.claude/rules/system.md" ]; then
+    SYSTEM_VERSION="v4"
+  elif [ -f "$WORLD_ROOT/.claude/rules/behaviors.md" ] || [ -f "$WORLD_ROOT/.claude/rules/conventions.md" ]; then
+    SYSTEM_VERSION="v3"
+  elif [ ! -f "$WORLD_ROOT/.claude/CLAUDE.md" ]; then
+    SYSTEM_VERSION="fresh"
+  else
+    SYSTEM_VERSION="v3"
+  fi
 fi
 
 # ── Detect model ────────────────────────────────────────
@@ -191,7 +203,9 @@ if [ "$WALNUT_COUNT" -gt 0 ]; then
   echo "▸ walnuts        ${ACTIVE_COUNT} active · ${QUIET_COUNT} quiet · ${WAITING_COUNT} waiting"
 fi
 
-if [ "$NEEDS_MIGRATION" -gt 0 ] && [ "$SYSTEM_VERSION" = "v1" ]; then
+if [ "$MIGRATION_REMAINING" -gt 0 ] && [ "$SYSTEM_VERSION" = "v1" ]; then
+  echo "▸ migration      ${MIGRATION_REMAINING} walnut(s) remaining — upgrade incomplete"
+elif [ "$NEEDS_MIGRATION" -gt 0 ] && [ "$SYSTEM_VERSION" = "v1" ]; then
   echo "▸ migration      ${NEEDS_MIGRATION} walnut(s) need key.md"
 fi
 
