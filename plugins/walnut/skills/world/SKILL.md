@@ -29,12 +29,15 @@ Session-start hook has already run. Read its output for system state. **System v
 | `fresh` | No `.claude/CLAUDE.md` | → [[setup]] immediately |
 | `v3` | v3 rules found | → [[upgrade]] immediately |
 | `v4` | system.md present, no key.md | → [[upgrade]] immediately |
+| `v1` + rules stale | `⚠ RULES UPDATE REQUIRED` in boot | → copy new rules from plugin, then dashboard |
 | `v1` + migration needed | v1 rules but walnuts missing key.md | → [[upgrade]] for remaining walnuts |
 | `v1` clean | Everything current | → Actionable surface |
 
-**No menu. No "would you like to upgrade?"** If the system is old, the upgrade runs. The worldbuilder can't use the dashboard on stale architecture — fix it first, then show the world.
+**No menu. No "would you like to upgrade?"** If the system is old or rules are stale, fix it first. The worldbuilder can't use the dashboard on stale architecture.
 
-The only prompt is at the start of upgrade: a quick "this takes ~5 minutes, ready?" So they know what's happening. Then it runs.
+**Rules update** is fast — just copy 3 files from plugin cache to `.claude/rules/`. Show what changed, apply, continue to dashboard. No 5-minute upgrade flow needed for rule updates alone.
+
+**Full upgrade** (v3/v4 or migration) takes ~5 minutes. Quick "this takes a few minutes, ready?" then it runs.
 
 ---
 

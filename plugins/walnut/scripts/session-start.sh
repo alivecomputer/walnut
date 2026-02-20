@@ -97,11 +97,16 @@ PROJECT_RULES="$WORLD_ROOT/.claude/rules"
 
 if [ -d "$PLUGIN_RULES" ] && [ -d "$PROJECT_RULES" ]; then
   for rulefile in squirrels.md world.md worldbuilder.md; do
-    if [ -f "$PLUGIN_RULES/$rulefile" ] && [ -f "$PROJECT_RULES/$rulefile" ]; then
-      PLUGIN_VER=$(grep "^version:" "$PLUGIN_RULES/$rulefile" 2>/dev/null | head -1 | sed 's/version: *//')
-      PROJECT_VER=$(grep "^version:" "$PROJECT_RULES/$rulefile" 2>/dev/null | head -1 | sed 's/version: *//')
-      if [ -n "$PLUGIN_VER" ] && [ -n "$PROJECT_VER" ] && [ "$PLUGIN_VER" != "$PROJECT_VER" ]; then
-        RULES_STALE="${RULES_STALE}  ${rulefile} ${PROJECT_VER} → ${PLUGIN_VER}\n"
+    if [ -f "$PLUGIN_RULES/$rulefile" ]; then
+      if [ ! -f "$PROJECT_RULES/$rulefile" ]; then
+        # Rule file missing entirely
+        RULES_STALE="${RULES_STALE}  ${rulefile}: MISSING\n"
+      else
+        PLUGIN_VER=$(grep "^version:" "$PLUGIN_RULES/$rulefile" 2>/dev/null | head -1 | sed 's/version: *//')
+        PROJECT_VER=$(grep "^version:" "$PROJECT_RULES/$rulefile" 2>/dev/null | head -1 | sed 's/version: *//')
+        if [ -n "$PLUGIN_VER" ] && [ "$PLUGIN_VER" != "$PROJECT_VER" ]; then
+          RULES_STALE="${RULES_STALE}  ${rulefile}: ${PROJECT_VER:-none} → ${PLUGIN_VER}\n"
+        fi
       fi
     fi
   done
@@ -247,8 +252,10 @@ if [ "$INPUTS_COUNT" -gt 0 ]; then
 fi
 
 if [ -n "$RULES_STALE" ]; then
-  echo "▸ rules update   available"
+  echo ""
+  echo "⚠ RULES UPDATE REQUIRED — run walnut:world to update before doing anything else"
   echo -e "$RULES_STALE"
+  echo "Skills expect the latest rules. Stash, close, and routing may not work correctly on stale rules."
 fi
 
 if [ -n "$PREFS_OUTPUT" ]; then
