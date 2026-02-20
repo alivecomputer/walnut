@@ -54,7 +54,7 @@ walnut:world          see your whole world
 walnut:open           open a walnut, work
 walnut:close          review stash, route, close
 walnut:add-to-world   smart routing engine
-walnut:build          customize — preferences to plugins
+walnut:worldbuilding  build your world — personalize everything
 ```
 
 ---

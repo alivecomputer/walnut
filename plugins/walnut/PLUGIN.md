@@ -22,7 +22,7 @@ Build Your World.
 | Open | `walnut:open` | Yes | Single-Walnut focus — load context, work |
 | Close | `walnut:close` | Yes | Review stash, route items, close |
 | Add to World | `walnut:add-to-world` | Yes | Smart routing — content finds its place |
-| Build | `walnut:build` | Yes | Customize — preferences, configs, skills, plugins |
+| Worldbuilding | `walnut:worldbuilding` | Yes | Build your world — preferences, configs, skills, APIs, plugins |
 
 Sub-skills (invoked by master skills):
 - **setup** — first-time World creation (World)
@@ -95,7 +95,7 @@ walnut/
 │   ├── open/         (SKILL.md)
 │   ├── close/        (SKILL.md)
 │   ├── add-to-world/ (SKILL.md)
-│   └── build/        (SKILL.md, references/, examples/)
+│   └── worldbuilding/ (SKILL.md, references/, examples/)
 ├── templates/        (walnut, world, scratch, chapter, companion,
 │                      squirrel, organisational, prototyper, brand, api)
 ├── hooks/            (hooks.json)
