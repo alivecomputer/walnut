@@ -78,6 +78,35 @@ fi
 # ── Detect model ────────────────────────────────────────
 MODEL="${CLAUDE_MODEL:-unknown}"
 
+# ── Read preferences ────────────────────────────────────
+PREFS_FILE="$WORLD_ROOT/.claude/preferences.yaml"
+PREFS_OUTPUT=""
+if [ -f "$PREFS_FILE" ]; then
+  # Read non-comment, non-empty lines as preference overrides
+  while IFS= read -r line; do
+    [[ "$line" =~ ^[[:space:]]*# ]] && continue
+    [[ -z "$line" ]] && continue
+    PREFS_OUTPUT="${PREFS_OUTPUT}  ${line}\n"
+  done < "$PREFS_FILE"
+fi
+
+# ── Detect rule staleness ──────────────────────────────
+RULES_STALE=""
+PLUGIN_RULES="${CLAUDE_PLUGIN_ROOT:-}/rules"
+PROJECT_RULES="$WORLD_ROOT/.claude/rules"
+
+if [ -d "$PLUGIN_RULES" ] && [ -d "$PROJECT_RULES" ]; then
+  for rulefile in squirrels.md world.md worldbuilder.md; do
+    if [ -f "$PLUGIN_RULES/$rulefile" ] && [ -f "$PROJECT_RULES/$rulefile" ]; then
+      PLUGIN_VER=$(grep "^version:" "$PLUGIN_RULES/$rulefile" 2>/dev/null | head -1 | sed 's/version: *//')
+      PROJECT_VER=$(grep "^version:" "$PROJECT_RULES/$rulefile" 2>/dev/null | head -1 | sed 's/version: *//')
+      if [ -n "$PLUGIN_VER" ] && [ -n "$PROJECT_VER" ] && [ "$PLUGIN_VER" != "$PROJECT_VER" ]; then
+        RULES_STALE="${RULES_STALE}  ${rulefile} ${PROJECT_VER} → ${PLUGIN_VER}\n"
+      fi
+    fi
+  done
+fi
+
 # ── Create squirrel entry (.yaml) ───────────────────────
 # Find the current walnut (closest folder with key.md or now.md)
 WALNUT_NAME=""
@@ -215,6 +244,16 @@ fi
 
 if [ "$INPUTS_COUNT" -gt 0 ]; then
   echo "▸ inputs         ${INPUTS_COUNT} item(s) pending triage"
+fi
+
+if [ -n "$RULES_STALE" ]; then
+  echo "▸ rules update   available"
+  echo -e "$RULES_STALE"
+fi
+
+if [ -n "$PREFS_OUTPUT" ]; then
+  echo "▸ preferences"
+  echo -e "$PREFS_OUTPUT"
 fi
 
 exit 0

@@ -1,0 +1,34 @@
+# Walnut Preferences
+# These override functional and optional behaviors in the rules files.
+# Session-start hook reads this file and makes preferences available to every skill.
+# Only uncomment lines you want to change from defaults.
+
+# ── Squirrel Behavior ──────────────────────────────────
+
+# The spark: one proactive observation when opening a walnut
+# spark: true
+
+# Stash checkpoint: silently write stash to squirrel entry every 5 items or 20 mins
+# stash_checkpoint: true
+
+# Close prompt: "anything else worth stashing?" before presenting the stash
+# close_prompt: true
+
+# Always watching: scan for people updates, scratch fits, save-worthy moments
+# always_watching: true
+
+# Show retrieval paths: display ▸ reads when loading files
+# show_reads: true
+
+# ── World Behavior ─────────────────────────────────────
+
+# Health signals: active / quiet / waiting based on rhythm
+# health_signals: true
+
+# Health nudges: proactively surface walnuts going quiet or waiting
+# health_nudges: true
+
+# ── Worldbuilder ───────────────────────────────────────
+
+# Single next action: enforce one next: in now.md (vs multiple)
+# single_next: true
