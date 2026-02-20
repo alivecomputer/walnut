@@ -1,5 +1,5 @@
 {
-  "description": "Walnut 0.1 — System hooks for session lifecycle, log protection, archive enforcement, and stash preservation.",
+  "description": "Walnut 0.1 — System hooks for session lifecycle, log protection, archive enforcement, stash preservation, and scratch signing.",
   "hooks": {
     "SessionStart": [
       {
@@ -30,6 +30,30 @@
           {
             "type": "prompt",
             "prompt": "ARCHIVE ENFORCER: You are about to run a bash command. If the command contains 'rm ', 'rm -rf', 'rm -r', 'rmdir', 'unlink', or any file/directory deletion pattern, AND the target path is inside an ALIVE World (contains 01_Archive/, 02_Life/, 03_Inputs/, 04_Ventures/, 05_Experiments/, _squirrels/, _scratch/, _chapters/, or _references/), DENY. Say: 'Nothing gets deleted in ALIVE. Archive it instead — move to 01_Archive/[original-path]. Want me to archive it?' If the deletion target is outside the ALIVE World, ALLOW. If the command is not a deletion, ALLOW immediately."
+          }
+        ]
+      }
+    ],
+
+    "PostToolUse": [
+      {
+        "matcher": "Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "SCRATCH SIGNER: You just wrote a file. If the file path contains '_scratch/', check: does the file have 'squirrel:' and 'model:' in its YAML frontmatter? If not, remind yourself: 'This scratch file needs signing — add squirrel: [your-id] and model: [your-model] to the frontmatter.' If the file is not in _scratch/, or already has signing, ALLOW silently."
+          }
+        ]
+      }
+    ],
+
+    "Stop": [
+      {
+        "matcher": "*",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "CLOSE CHECK: You are about to stop. Check: do you have stash items in this conversation that haven't been routed? If yes, say: '🐿️ you have [N] stash items that haven't been routed. close now, or leave for next session?' and present as numbered options: 1. close now  2. leave for next session. If you have no stash items, or the session was already closed, stop cleanly."
           }
         ]
       }
