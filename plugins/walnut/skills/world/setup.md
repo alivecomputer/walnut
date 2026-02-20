@@ -63,19 +63,26 @@ No questions needed — just create it. Show the tree.
 
 Rules are copied from the plugin source into `.claude/rules/`.
 
-### 3b. Path Setup
+### 3b. Path Setup (automatic)
 
-Create symlinks so the worldbuilder never deals with long paths or spaces:
+Always create symlinks. No question, just do it:
 
 ```bash
-# iCloud users
-ln -s "$HOME/Library/Mobile Documents/com~apple~CloudDocs" ~/icloud  # if not exists
-ln -s "[world path]" ~/world
+# iCloud Drive shortcut (no more escaping spaces)
+ln -s "$HOME/Library/Mobile Documents/com~apple~CloudDocs" ~/icloud
+
+# World shortcut
+ln -s ~/icloud/world ~/world
 ```
 
 ```
-  ~/world is ready. Use this in your terminal from now on.
+  ~/world is ready.
+
+  from now on: cd ~/world && claude
+  that's it. that's the entry point.
 ```
+
+This is non-optional. Every worldbuilder gets `~/world` from day one.
 
 ### 4. Voice (optional)
 
