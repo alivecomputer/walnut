@@ -1,0 +1,10 @@
+---
+# API Config — one file per service
+# Keys NEVER stored here — use environment variable names only
+
+service: {{service_name}}
+key-env: {{ENV_VAR_NAME}}
+model: {{model}}
+use-for: [{{capabilities}}]
+configured: {{date}}
+---

@@ -1,0 +1,16 @@
+---
+# Brand Config — Owner-operator's visual identity
+# Used by Prototyper and any rendered output
+# Set up via onboarding or edit directly
+
+name: {{owner_name}}
+accent: "#d97706"
+background: "#fafaf9"
+text: "#1c1917"
+heading-font: Fraunces
+body-font: Outfit
+logo:                         # path to logo file, e.g. .claude/brand/logo.png
+style: warm                   # warm | minimal | bold | dark
+signature: alivecomputer.com  # shown in ALIVE mark on renders
+configured: {{date}}
+---

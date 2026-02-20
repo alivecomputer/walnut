@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ALIVE — Build Your World</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,600&family=Outfit:wght@200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --amber: #d97706;
+      --amber-light: #fbbf24;
+      --amber-pale: #fef3c7;
+      --amber-faint: #fffbeb;
+      --stone-900: #1c1917;
+      --stone-800: #292524;
+      --stone-700: #44403c;
+      --stone-600: #57534e;
+      --stone-500: #78716c;
+      --stone-400: #a8a29e;
+      --stone-300: #d6d3d1;
+      --stone-200: #e7e5e4;
+      --stone-100: #f5f5f4;
+      --stone-50: #fafaf9;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: 'Outfit', system-ui, sans-serif;
+      font-weight: 300;
+      background: var(--stone-50);
+      color: var(--stone-800);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* Progress bar */
+    .progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 2px;
+      background: var(--amber);
+      transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 100;
+    }
+
+    /* Step counter */
+    .step-counter {
+      position: fixed;
+      top: 24px;
+      right: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: var(--stone-400);
+      z-index: 100;
+      letter-spacing: 0.05em;
+    }
+
+    /* Navigation */
+    .nav {
+      position: fixed;
+      bottom: 32px;
+      right: 32px;
+      display: flex;
+      gap: 12px;
+      z-index: 100;
+    }
+
+    .nav button {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border: 1px solid var(--stone-300);
+      background: #fff;
+      color: var(--stone-600);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .nav button:hover {
+      border-color: var(--amber);
+      color: var(--amber);
+    }
+
+    .nav button.primary {
+      background: var(--stone-900);
+      border-color: var(--stone-900);
+      color: #fff;
+    }
+
+    .nav button.primary:hover {
+      background: var(--stone-800);
+    }
+
+    .nav button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+
+    /* Keyboard hint */
+    .key-hint {
+      position: fixed;
+      bottom: 32px;
+      left: 32px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      color: var(--stone-400);
+      z-index: 100;
+    }
+
+    .key-hint kbd {
+      display: inline-block;
+      padding: 1px 6px;
+      border: 1px solid var(--stone-300);
+      border-radius: 3px;
+      font-size: 10px;
+      margin: 0 2px;
+    }
+
+    /* Slides container */
+    .slides {
+      height: 100vh;
+      width: 100vw;
+      position: relative;
+    }
+
+    .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 80px 32px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+      pointer-events: none;
+    }
+
+    .slide.active {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .slide-inner {
+      max-width: 720px;
+      width: 100%;
+    }
+
+    /* Typography */
+    .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 300;
+      font-size: 48px;
+      line-height: 1.15;
+      letter-spacing: -1px;
+      color: var(--stone-900);
+      margin-bottom: 28px;
+    }
+
+    h1 em {
+      font-style: normal;
+      color: var(--amber);
+    }
+
+    h2 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-weight: 400;
+      font-size: 28px;
+      line-height: 1.3;
+      color: var(--stone-900);
+      margin-bottom: 24px;
+    }
+
+    .body-text {
+      font-size: 18px;
+      line-height: 1.8;
+      color: var(--stone-600);
+      margin-bottom: 20px;
+    }
+
+    .body-text strong {
+      color: var(--stone-900);
+      font-weight: 400;
+    }
+
+    .quote {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 24px;
+      font-weight: 300;
+      line-height: 1.5;
+      color: var(--stone-700);
+      border-left: 3px solid var(--amber);
+      padding: 16px 28px;
+      margin: 32px 0;
+    }
+
+    /* Code blocks */
+    .terminal {
+      background: var(--stone-900);
+      color: var(--stone-300);
+      padding: 24px 28px;
+      border-radius: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.7;
+      margin: 28px 0;
+      border-left: 3px solid var(--amber);
+    }
+
+    .terminal .prompt { color: var(--amber); }
+    .terminal .comment { color: var(--stone-500); }
+    .terminal .file { color: var(--amber-light); }
+
+    /* Cards */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin: 28px 0;
+    }
+
+    .card {
+      padding: 24px;
+      border: 1px solid var(--stone-200);
+      background: #fff;
+      transition: border-color 0.2s;
+    }
+
+    .card:hover { border-color: var(--amber); }
+
+    .card-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 10px;
+    }
+
+    .card-body {
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--stone-600);
+    }
+
+    /* Walnut diagram */
+    .walnut-structure {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 14px;
+      line-height: 1.8;
+      color: var(--stone-500);
+      margin: 28px 0;
+      padding: 24px;
+      background: #fff;
+      border: 1px solid var(--stone-200);
+    }
+
+    .walnut-structure .folder { color: var(--amber); }
+    .walnut-structure .file { color: var(--stone-700); }
+    .walnut-structure .note { color: var(--stone-400); font-size: 12px; }
+
+    /* Table */
+    .simple-table {
+      width: 100%;
+      margin: 24px 0;
+      font-size: 15px;
+    }
+
+    .simple-table td {
+      padding: 12px 0;
+      border-bottom: 1px solid var(--stone-200);
+      vertical-align: top;
+    }
+
+    .simple-table td:first-child {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      color: var(--amber);
+      width: 140px;
+      padding-right: 20px;
+    }
+
+    .simple-table td:last-child { color: var(--stone-600); }
+
+    /* Dark slide variant */
+    .slide.dark {
+      background: var(--stone-900);
+    }
+
+    .slide.dark h1 { color: #fff; }
+    .slide.dark h1 em { color: var(--amber-light); }
+    .slide.dark .body-text { color: var(--stone-400); }
+    .slide.dark .body-text strong { color: #fff; }
+    .slide.dark .label { color: var(--amber-light); }
+
+    /* Amber slide variant */
+    .slide.warm {
+      background: var(--amber-faint);
+    }
+
+    /* Install CTA */
+    .install-block {
+      background: var(--stone-900);
+      padding: 32px;
+      border-radius: 6px;
+      margin: 32px 0;
+      text-align: center;
+    }
+
+    .install-block code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 15px;
+      color: var(--amber-light);
+      display: block;
+      margin: 8px 0;
+    }
+
+    .install-block .step-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--stone-500);
+      margin-top: 16px;
+    }
+
+    /* Mark */
+    .mark {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--stone-400);
+      z-index: 100;
+    }
+
+    .mark a { color: inherit; text-decoration: none; }
+
+    /* Responsive */
+    @media (max-width: 640px) {
+      h1 { font-size: 32px; }
+      h2 { font-size: 22px; }
+      .body-text { font-size: 16px; }
+      .slide { padding: 60px 24px; }
+      .cards { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress" id="progress"></div>
+  <div class="step-counter" id="stepCounter">1 / 9</div>
+  <div class="key-hint"><kbd>&larr;</kbd> <kbd>&rarr;</kbd> to navigate</div>
+
+  <div class="nav">
+    <button id="prevBtn" disabled onclick="prev()">Back</button>
+    <button id="nextBtn" class="primary" onclick="next()">Continue</button>
+  </div>
+
+  <div class="mark"><a href="https://alivecomputer.com">alive &middot; alivecomputer.com</a></div>
+
+  <div class="slides">
+
+    <!-- 1. THE PROBLEM -->
+    <div class="slide dark active" data-step="0">
+      <div class="slide-inner">
+        <div class="label">The problem</div>
+        <h1>Every conversation with AI<br>starts from <em>zero</em>.</h1>
+        <p class="body-text">
+          You explain your business. Your goals. Your people. Your history. Your preferences.
+          Then the session ends. And the next one knows <strong>nothing</strong>.
+        </p>
+        <p class="body-text">
+          You've had a thousand conversations with AI. It remembers none of them.
+        </p>
+        <div class="quote">
+          AI without memory is a library.<br>
+          AI with memory is a mind.<br>
+          We have been building libraries.
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. THE THESIS -->
+    <div class="slide" data-step="1">
+      <div class="slide-inner">
+        <div class="label">The thesis</div>
+        <h1>Context is an <em>asset</em>.</h1>
+        <p class="body-text">
+          Every decision you've made, every person you've met, every lesson you've learned —
+          that's not conversation history. <strong>That's value.</strong>
+        </p>
+        <p class="body-text">
+          And it should belong to you. On your machine. In files you control.
+          Not rented from a cloud. Not locked in a platform. Not wiped every session.
+        </p>
+        <p class="body-text">
+          Context compounds. Like interest. Like soil. Every session should build on the last.
+        </p>
+      </div>
+    </div>
+
+    <!-- 3. WHAT IS ALIVE -->
+    <div class="slide warm" data-step="2">
+      <div class="slide-inner">
+        <div class="label">The system</div>
+        <h1>This is <em>ALIVE</em>.</h1>
+        <p class="body-text">
+          Context infrastructure that lives on your machine. Your decisions, your people,
+          your endeavors — in files you own forever.
+        </p>
+        <p class="body-text">
+          It's a plugin for <strong>Claude Code</strong> — Anthropic's CLI for Claude.
+          You install it once. It gives Claude persistent memory across every session.
+          No cloud. No account. No subscription for your own context.
+        </p>
+        <div class="quote">
+          It's files. On your computer. Markdown. That's it.
+        </div>
+        <p class="body-text">
+          The simplicity is the point. Files are portable, grep-able, version-controllable, and yours.
+        </p>
+      </div>
+    </div>
+
+    <!-- 4. THE WALNUT -->
+    <div class="slide" data-step="3">
+      <div class="slide-inner">
+        <div class="label">The architecture</div>
+        <h1>Everything is a <em>Walnut</em>.</h1>
+        <p class="body-text">
+          A Walnut is a folder with two files at root. That's the only thing that makes it alive.
+        </p>
+        <div class="walnut-structure">
+          <span class="folder">my-venture/</span><br>
+          <span class="file">&nbsp;&nbsp;now.md</span> <span class="note">&larr; what is. current state, next action, tasks.</span><br>
+          <span class="file">&nbsp;&nbsp;log.md</span> <span class="note">&larr; what was. every session, every decision. append-only.</span><br>
+          <span class="folder">&nbsp;&nbsp;_squirrels/</span> <span class="note">&larr; AI session files</span><br>
+          <span class="folder">&nbsp;&nbsp;_scratch/</span> <span class="note">&larr; drafts in progress</span><br>
+          <span class="folder">&nbsp;&nbsp;_references/</span> <span class="note">&larr; source material</span>
+        </div>
+        <p class="body-text">
+          A venture is a Walnut. A person is a Walnut. A campaign, an experiment, a life area — all Walnuts.
+          Same structure. Different type. Your World is made of them.
+        </p>
+      </div>
+    </div>
+
+    <!-- 5. THE SQUIRREL -->
+    <div class="slide dark" data-step="4">
+      <div class="slide-inner">
+        <div class="label">The agent</div>
+        <h1>Every AI session is a <em>Squirrel</em>.</h1>
+        <p class="body-text">
+          When you open Claude Code, a Squirrel wakes up. It has an ID.
+          It reads your Walnuts. It works with you. And while you work,
+          <strong>it catches everything worth keeping</strong>.
+        </p>
+        <p class="body-text">
+          Decisions. Insights. Tasks. People mentioned. Quotes. Open questions.
+          The Squirrel catches them silently. No interruption. No "should I save this?"
+        </p>
+        <p class="body-text">
+          When you're done, the Squirrel signs off — presenting everything it caught.
+          You route each item to the right Walnut. The session's work enters your World permanently.
+        </p>
+        <p class="body-text" style="color: var(--amber-light);">
+          Nothing falls through the cracks because the Squirrel is always catching.
+        </p>
+      </div>
+    </div>
+
+    <!-- 6. THREE SURFACES -->
+    <div class="slide" data-step="5">
+      <div class="slide-inner">
+        <div class="label">The experience</div>
+        <h1>Three surfaces. That's <em>all</em>.</h1>
+        <p class="body-text">
+          No commands to memorise. No feature menus. Three ways in.
+        </p>
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">Home</div>
+            <div class="card-body">See your whole World. What matters today. What's gone quiet. What needs attention. The 3 most important things, always.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Quick Start</div>
+            <div class="card-body">Enter one Walnut. Load its context. Work. The Squirrel catches everything. Sign off when done.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Add to World</div>
+            <div class="card-body">Anything entering your World comes through here. Paste an email, drop a transcript, note a decision. It finds its place.</div>
+          </div>
+        </div>
+        <p class="body-text">
+          Everything else — system health, search, new Walnuts, archiving — happens from inside these three.
+          You navigate surfaces, not skill names.
+        </p>
+      </div>
+    </div>
+
+    <!-- 7. THE LOOP -->
+    <div class="slide warm" data-step="6">
+      <div class="slide-inner">
+        <div class="label">The rhythm</div>
+        <h1>Context <em>compounds</em>.</h1>
+        <table class="simple-table">
+          <tr><td>open</td><td>The Squirrel reads your Walnuts. Checks for unsigned sessions. Shows you where things are.</td></tr>
+          <tr><td>work</td><td>You do your thing. The Squirrel catches decisions, insights, tasks, people — silently, in the background.</td></tr>
+          <tr><td>sign off</td><td>The Squirrel presents what it caught. You route each item. It signs the log. Regenerates the state.</td></tr>
+          <tr><td>repeat</td><td>Next session picks up with full context. No rebuilding. No re-explaining. The World just grows.</td></tr>
+        </table>
+        <p class="body-text">
+          Day one: you set up your World.<br>
+          Day thirty: you have a month of compounded context — every decision, every person, every insight.<br>
+          <strong>The machine stops performing familiarity and starts possessing it.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- 8. THE MARKETPLACE -->
+    <div class="slide" data-step="7">
+      <div class="slide-inner">
+        <div class="label">The ecosystem</div>
+        <h1>Build on it. <em>Extend</em> everything.</h1>
+        <p class="body-text">
+          ALIVE ships with the core — Home, Quick Start, Add to World. But the system is open.
+          Anyone can build plugins that work inside your World.
+        </p>
+        <div class="cards">
+          <div class="card">
+            <div class="card-title">Visualiser</div>
+            <div class="card-body">See your World as an interactive node network. Walnuts as nodes. Links as edges. Watch it grow over time.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Prototyper</div>
+            <div class="card-body">Turn any markdown into a clean, branded HTML document. Share it with a link. Your style, not AI slop.</div>
+          </div>
+          <div class="card">
+            <div class="card-title">Your own</div>
+            <div class="card-body">Ask the system to build a skill for you. It follows the contract. It works everywhere. Your World, your rules.</div>
+          </div>
+        </div>
+        <p class="body-text">
+          Community plugins are reviewed for safety. The marketplace lives at
+          <strong>alivecomputer.com</strong>. Open source. MIT license. Fork it.
+        </p>
+      </div>
+    </div>
+
+    <!-- 9. INSTALL -->
+    <div class="slide dark" data-step="8">
+      <div class="slide-inner">
+        <div class="label">Get started</div>
+        <h1><em>Build</em> your World.</h1>
+        <div class="install-block">
+          <div class="step-label">Step 1 — add the marketplace</div>
+          <code>claude plugin marketplace add alivecomputer/alive</code>
+          <div class="step-label" style="margin-top: 24px;">Step 2 — install</div>
+          <code>claude plugin install alive@alivecomputer</code>
+          <div class="step-label" style="margin-top: 24px;">Step 3 — restart Claude Code and type</div>
+          <code>/alive:home</code>
+        </div>
+        <p class="body-text">
+          First-time setup takes 10 minutes. Then it's yours forever.
+        </p>
+        <p class="body-text">
+          Open source. Local-first. No ads. Ever.
+        </p>
+        <p class="body-text" style="color: var(--amber-light); margin-top: 32px;">
+          Your computer is alive.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const slides = document.querySelectorAll('.slide');
+    const progress = document.getElementById('progress');
+    const stepCounter = document.getElementById('stepCounter');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    let current = 0;
+    const total = slides.length;
+
+    function update() {
+      slides.forEach((s, i) => s.classList.toggle('active', i === current));
+      progress.style.width = ((current + 1) / total * 100) + '%';
+      stepCounter.textContent = (current + 1) + ' / ' + total;
+      prevBtn.disabled = current === 0;
+      nextBtn.textContent = current === total - 1 ? 'Done' : 'Continue';
+    }
+
+    function next() {
+      if (current < total - 1) { current++; update(); }
+    }
+
+    function prev() {
+      if (current > 0) { current--; update(); }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); next(); }
+      if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+    });
+
+    update();
+  </script>
+
+</body>
+</html>

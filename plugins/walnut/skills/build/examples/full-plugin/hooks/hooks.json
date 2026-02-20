@@ -1,0 +1,16 @@
+{
+  "description": "Example plugin hooks",
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "prompt",
+            "prompt": "A file was just edited. If the file is inside a Walnut (has now.md and log.md as siblings), note the edit in your squirrel file as a catch. Otherwise, no action needed."
+          }
+        ]
+      }
+    ]
+  }
+}

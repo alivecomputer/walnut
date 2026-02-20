@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "alivecomputer",
+  "description": "The Walnut plugin marketplace. Context infrastructure for worldbuilders. Build Your World.",
+  "owner": {
+    "name": "Alive Computer",
+    "email": "operator@alivecomputer.com"
+  },
+  "plugins": [
+    {
+      "name": "walnut",
+      "description": "The world's first alive computer. Context infrastructure that lives on your machine — your decisions, people, and endeavors in files you own forever.",
+      "version": "1.0.0",
+      "author": {
+        "name": "Alive Computer",
+        "email": "operator@alivecomputer.com"
+      },
+      "source": "./plugins/walnut",
+      "category": "productivity",
+      "homepage": "https://alivecomputer.com"
+    }
+  ]
+}

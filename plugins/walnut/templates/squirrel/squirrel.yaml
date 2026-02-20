@@ -1,0 +1,7 @@
+squirrel: {{squirrel_id}}
+model: {{model}}
+walnut: {{walnut_name}}
+started: {{datetime}}
+signed: false
+stash: []
+scratch: []
