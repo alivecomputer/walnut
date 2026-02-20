@@ -30,6 +30,20 @@ Then ask: load full context, or just chat?
 
 Frontmatter is always free to read. Don't pull the worldbuilder into a structured session unless they want it.
 
+### Reviving an unsigned session
+
+If you find an unsigned entry that has stash items — especially one with no scratch files and no commits — the previous squirrel had a rich conversation that never got saved. That context is valuable.
+
+Before starting fresh, offer to revive:
+
+```
+squirrel:a3f7b2c1 had a session with 6 stash items but nothing was
+written to scratch or log. Want me to review what it caught before
+we start?
+```
+
+If yes: present the previous stash for routing (same as close flow). Then start the new session with that context recovered. If no: clear the entry and move on.
+
 ---
 
 ## Stash
