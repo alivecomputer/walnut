@@ -217,6 +217,51 @@ If cleanup:
 
 ---
 
+## Phase 4: Path Setup
+
+Create a clean symlink so the worldbuilder never deals with spaces or long paths again:
+
+```
+▸ setting up paths
+```
+
+**iCloud users (macOS):**
+```bash
+# If ~/icloud doesn't exist
+ln -s "$HOME/Library/Mobile Documents/com~apple~CloudDocs" ~/icloud
+
+# World shortcut
+ln -s "[actual world path]" ~/world
+```
+
+**Non-iCloud users:**
+```bash
+ln -s "[actual world path]" ~/world
+```
+
+After this: `cd ~/world` works everywhere. No escaping spaces.
+
+```
+▸ paths configured
+  ~/world → [actual path]
+
+Tip: use ~/world in your terminal from now on.
+```
+
+**Optional: rename the root folder.** If the folder is currently called `alive`, offer to rename to `world`:
+
+```
+Your World folder is called "alive". Want to rename it to "world"?
+This makes ~/world point to ~/icloud/world instead of ~/icloud/alive.
+
+  1. rename to world
+  2. keep as alive (symlink still works)
+```
+
+If rename: `mv` the folder, update the symlink. If keep: symlink handles it either way.
+
+---
+
 ## Completion
 
 ```
@@ -225,8 +270,9 @@ If cleanup:
   system:    Walnut v1
   walnuts:   [n] migrated
   cleanup:   [n] resolved
+  path:      ~/world
 
-Your alive computer is running Walnut v1
+Your alive computer is running Walnut v1.
 Run walnut:world to see your World.
 ```
 
@@ -235,7 +281,7 @@ Run walnut:world to see your World.
 ## Community Guide
 
 1. Update the plugin: `claude plugin update alivecomputer/walnut`
-2. Open your ALIVE folder
+2. Open your World folder (or `cd ~/world` if symlink set up)
 3. `walnut:world`
 4. Follow the upgrade (~5 minutes)
 5. Done
