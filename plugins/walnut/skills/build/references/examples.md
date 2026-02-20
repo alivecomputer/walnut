@@ -18,9 +18,9 @@ focus/
 ```yaml
 ---
 skill: focus
-version: 1.0.0
+version: 0.1.0
 user-invocable: false
-description: This skill should be used when the owner-operator asks to "start a focus session", "pomodoro", "focus for 25 minutes", "deep work", or wants timed focused work with breaks.
+description: This skill should be used when the worldbuilder asks to "start a focus session", "pomodoro", "focus for 25 minutes", "deep work", or wants timed focused work with breaks.
 triggers: [focus, pomodoro, deep work, focus session, time block]
 requires-apis: []
 ---
@@ -32,13 +32,13 @@ Start a timed focus session. Set a duration. Work. Break when done.
 ## Flow
 
 1. AskUserQuestion: "How long? [1] 25 min [2] 50 min [3] Custom"
-2. Set the timer (log start time to squirrel file)
-3. Owner-operator works. Squirrel catches as normal.
+2. Set the timer (log start time to squirrel entry)
+3. Worldbuilder works. Squirrel stashes as normal.
 4. At duration: surface "Time's up. Break or continue?"
-5. Log focus session to log.md at sign-off.
+5. Log focus session to log.md at close.
 ```
 
-That's it. One file. Works inside the system because it follows the contract: catches to squirrel file, logs at sign-off, uses AskUserQuestion.
+That's it. One file. Works inside the system because it follows the contract: stashes in conversation, logs at close, uses numbered menus.
 
 ---
 
@@ -70,7 +70,7 @@ The skill:
 - Logs "invoice created" to the client Walnut's log.md
 - Marks paid → logs to both client Walnut and venture Walnut
 
-Follows the contract: reads via standard protocol, writes to log, uses AskUserQuestion for decisions, signs off.
+Follows the contract: reads via standard protocol, writes to log, uses AskUserQuestion for decisions, closes.
 
 ---
 
@@ -123,7 +123,7 @@ All three examples follow the same contract:
 | Reads via standard protocol | _squirrels → now.md → log frontmatter |
 | Writes to log as signed entries | squirrel:[id] signs every entry |
 | Uses AskUserQuestion for decisions | Never assumes, always asks |
-| Catches to squirrel file | No routing mid-session |
+| Stashes in conversation | No routing mid-session |
 | Scratch for drafts | v0.x, promote to v1 |
 | APIs declared in frontmatter | Setup on first use |
 | Wikilinks for connections | Links to relevant Walnuts |

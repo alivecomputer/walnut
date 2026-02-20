@@ -1,6 +1,6 @@
 ---
 name: walnut
-version: 1.0.0
+version: 0.1.0
 codename: Walnut
 description: The world's first alive computer. Open source context infrastructure that lives on your machine.
 author: Alive Computer
@@ -10,7 +10,7 @@ community: https://skool.com/worldbuilders
 license: MIT
 ---
 
-# Walnut 1.0
+# Walnut 0.1
 
 Build Your World.
 
@@ -20,7 +20,7 @@ Build Your World.
 |-------|---------|-----------|-------------|
 | World | `walnut:world` | Yes | World dashboard — boot, health, tend, find |
 | Open | `walnut:open` | Yes | Single-Walnut focus — load context, work |
-| Close | `walnut:close` | Yes | Review stash, route items, sign off |
+| Close | `walnut:close` | Yes | Review stash, route items, close |
 | Add to World | `walnut:add-to-world` | Yes | Smart routing — content finds its place |
 | Build | `walnut:build` | Yes | Customize — preferences, configs, skills, plugins |
 

@@ -60,7 +60,7 @@ Before starting fresh, offer to revive:
 
 ```
 squirrel:a3f7b2c1 had a session with 6 stash items but nothing was
-written to scratch or log. Want me to review what it caught before
+written to scratch or log. Want me to review what it stashed before
 we start?
 ```
 
@@ -86,7 +86,7 @@ Format — yaml with type as comment:
 
 ```yaml
 🐿️ stash:
-- about.md replaces walnut CLAUDE.md  # decision
+- key.md replaces walnut CLAUDE.md  # decision
 - draft squirrels.md  # task
 - Will mentioned new timeline  # note
 ```
@@ -122,7 +122,7 @@ The stash becomes the review. Present as a numbered list:
 ```
 🐿️ closing — 3 items
 
-  1. about.md replaces CLAUDE.md → alive-gtm?
+  1. key.md replaces CLAUDE.md → alive-gtm?
   2. draft squirrels.md → alive-gtm?
   3. Will mentioned new timeline → create [[will-adler]]?
 
@@ -153,7 +153,7 @@ started: 2026-02-20T14:00:00
 ended: 2026-02-20T15:30:00
 signed: true
 stash:
-  - content: about.md replaces CLAUDE.md
+  - content: key.md replaces CLAUDE.md
     type: decision
     routed: alive-gtm
   - content: draft squirrels.md

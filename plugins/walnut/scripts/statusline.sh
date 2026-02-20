@@ -1,6 +1,6 @@
 #!/bin/bash
-# Walnut 1.0 — Statusline
-# Shows: squirrel:ID | Model | ctx% | $cost | [Walnut name + health] | [catches] | [inputs]
+# Walnut 0.1 — Statusline
+# Shows: squirrel:ID | Model | ctx% | $cost | [Walnut name + health] | [unsigned] | [inputs]
 
 input=$(cat)
 
@@ -81,18 +81,21 @@ if [ -n "$walnut_name" ]; then
   health_signal=""
   case "$walnut_health" in
     quiet) health_signal=" ${YELLOW}?${RESET}" ;;
-    dormant) health_signal=" ${RED}~${RESET}" ;;
+    waiting) health_signal=" ${RED}~${RESET}" ;;
   esac
   components+=("${CYAN}${walnut_name}${RESET}${health_signal}")
 elif [ -n "$ALIVE_ROOT" ] && [[ "$dir" == "$ALIVE_ROOT"* ]]; then
   components+=("${AMBER}ALIVE${RESET}")
 fi
 
-# 6. Catch count (unsigned squirrel files in current walnut)
+# 6. Unsigned count (unsigned squirrel entries in current walnut)
 if [ -n "$walnut_name" ] && [ -d "$check_dir/_squirrels" ]; then
-  catch_count=$(grep -l "signed: false" "$check_dir"/_squirrels/squirrel:*.md 2>/dev/null | wc -l | tr -d ' ')
-  if [ "$catch_count" -gt 0 ]; then
-    components+=("${YELLOW}${catch_count}✱${RESET}")
+  unsigned_count=0
+  yaml_count=$(grep -l "signed: false" "$check_dir"/_squirrels/squirrel:*.yaml 2>/dev/null | wc -l | tr -d ' ')
+  md_count=$(grep -l "signed: false" "$check_dir"/_squirrels/squirrel:*.md 2>/dev/null | wc -l | tr -d ' ')
+  unsigned_count=$((yaml_count + md_count))
+  if [ "$unsigned_count" -gt 0 ]; then
+    components+=("${YELLOW}${unsigned_count}✱${RESET}")
   fi
 fi
 

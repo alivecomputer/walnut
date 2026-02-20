@@ -1,6 +1,6 @@
 ---
 skill: world
-version: 1.0.0
+version: 0.1.0
 user-invocable: true
 description: World dashboard and main entry point. Shows actionable surface — walnuts, attention items, emails, people, inputs. Smart about figuring out what the worldbuilder needs.
 triggers: [world, dashboard, morning, what's up, start my day, what should I work on, show me everything, where are we, what's happening, check email, check slack, this week, goals, people]

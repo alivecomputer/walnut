@@ -452,12 +452,13 @@
         <div class="label">The architecture</div>
         <h1>Everything is a <em>Walnut</em>.</h1>
         <p class="body-text">
-          A Walnut is a folder with two files at root. That's the only thing that makes it alive.
+          A Walnut is a folder with three files at root. That's the only thing that makes it alive.
         </p>
         <div class="walnut-structure">
           <span class="folder">my-venture/</span><br>
-          <span class="file">&nbsp;&nbsp;now.md</span> <span class="note">&larr; what is. current state, next action, tasks.</span><br>
-          <span class="file">&nbsp;&nbsp;log.md</span> <span class="note">&larr; what was. every session, every decision. append-only.</span><br>
+          <span class="file">&nbsp;&nbsp;key.md</span> <span class="note">&larr; what it is. identity, people, specs. evergreen.</span><br>
+          <span class="file">&nbsp;&nbsp;now.md</span> <span class="note">&larr; where it is. current state, next action, tasks.</span><br>
+          <span class="file">&nbsp;&nbsp;log.md</span> <span class="note">&larr; where it's been. every session, every decision. append-only.</span><br>
           <span class="folder">&nbsp;&nbsp;_squirrels/</span> <span class="note">&larr; AI session files</span><br>
           <span class="folder">&nbsp;&nbsp;_scratch/</span> <span class="note">&larr; drafts in progress</span><br>
           <span class="folder">&nbsp;&nbsp;_references/</span> <span class="note">&larr; source material</span>
@@ -477,18 +478,18 @@
         <p class="body-text">
           When you open Claude Code, a Squirrel wakes up. It has an ID.
           It reads your Walnuts. It works with you. And while you work,
-          <strong>it catches everything worth keeping</strong>.
+          <strong>it stashes everything worth keeping</strong>.
         </p>
         <p class="body-text">
           Decisions. Insights. Tasks. People mentioned. Quotes. Open questions.
-          The Squirrel catches them silently. No interruption. No "should I save this?"
+          The Squirrel stashes them silently. No interruption. No "should I save this?"
         </p>
         <p class="body-text">
-          When you're done, the Squirrel signs off — presenting everything it caught.
+          When you're done, the Squirrel closes — presenting everything it stashed.
           You route each item to the right Walnut. The session's work enters your World permanently.
         </p>
         <p class="body-text" style="color: var(--amber-light);">
-          Nothing falls through the cracks because the Squirrel is always catching.
+          Nothing falls through the cracks because the Squirrel is always stashing.
         </p>
       </div>
     </div>
@@ -503,12 +504,12 @@
         </p>
         <div class="cards">
           <div class="card">
-            <div class="card-title">Home</div>
+            <div class="card-title">World</div>
             <div class="card-body">See your whole World. What matters today. What's gone quiet. What needs attention. The 3 most important things, always.</div>
           </div>
           <div class="card">
-            <div class="card-title">Quick Start</div>
-            <div class="card-body">Enter one Walnut. Load its context. Work. The Squirrel catches everything. Sign off when done.</div>
+            <div class="card-title">Open</div>
+            <div class="card-body">Enter one Walnut. Load its context. Work. The Squirrel stashes everything. Close when done.</div>
           </div>
           <div class="card">
             <div class="card-title">Add to World</div>
@@ -529,8 +530,8 @@
         <h1>Context <em>compounds</em>.</h1>
         <table class="simple-table">
           <tr><td>open</td><td>The Squirrel reads your Walnuts. Checks for unsigned sessions. Shows you where things are.</td></tr>
-          <tr><td>work</td><td>You do your thing. The Squirrel catches decisions, insights, tasks, people — silently, in the background.</td></tr>
-          <tr><td>sign off</td><td>The Squirrel presents what it caught. You route each item. It signs the log. Regenerates the state.</td></tr>
+          <tr><td>work</td><td>You do your thing. The Squirrel stashes decisions, insights, tasks, people — silently, in the background.</td></tr>
+          <tr><td>close</td><td>The Squirrel presents what it stashed. You route each item. It signs the log. Regenerates the state.</td></tr>
           <tr><td>repeat</td><td>Next session picks up with full context. No rebuilding. No re-explaining. The World just grows.</td></tr>
         </table>
         <p class="body-text">
@@ -547,7 +548,7 @@
         <div class="label">The ecosystem</div>
         <h1>Build on it. <em>Extend</em> everything.</h1>
         <p class="body-text">
-          ALIVE ships with the core — Home, Quick Start, Add to World. But the system is open.
+          ALIVE ships with the core — World, Open, Add to World. But the system is open.
           Anyone can build plugins that work inside your World.
         </p>
         <div class="cards">
@@ -578,11 +579,11 @@
         <h1><em>Build</em> your World.</h1>
         <div class="install-block">
           <div class="step-label">Step 1 — add the marketplace</div>
-          <code>claude plugin marketplace add alivecomputer/alive</code>
+          <code>claude plugin marketplace add alivecomputer/walnut</code>
           <div class="step-label" style="margin-top: 24px;">Step 2 — install</div>
-          <code>claude plugin install alive@alivecomputer</code>
+          <code>claude plugin install walnut@alivecomputer</code>
           <div class="step-label" style="margin-top: 24px;">Step 3 — restart Claude Code and type</div>
-          <code>/alive:home</code>
+          <code>walnut:world</code>
         </div>
         <p class="body-text">
           First-time setup takes 10 minutes. Then it's yours forever.

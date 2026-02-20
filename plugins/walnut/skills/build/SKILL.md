@@ -1,6 +1,6 @@
 ---
 skill: build
-version: 1.0.0
+version: 0.1.0
 user-invocable: true
 description: Customization surface for the World. Use when the worldbuilder wants to change how their system behaves — from a one-line preference to a full plugin. Educates on the difference between settings, rules, skills, and plugins when the intent is unclear.
 triggers: [build, customize, I want it to, make it always, can we change, I want a skill that, build a plugin, create a skill, make a plugin, when I do X it should Y, preferences, settings]

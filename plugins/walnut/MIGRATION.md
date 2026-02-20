@@ -1,8 +1,8 @@
 # Migration Guide
 
-## v3 → v1 (from Unlimited Elephant)
+## v3 → v0.1 (from Unlimited Elephant)
 
-| v3 | v1 | Action |
+| v3 | v0.1 | Action |
 |---|---|---|
 | `_brain/status.md` | `key.md` + `now.md` at root | Split: evergreen → key.md, state → now.md |
 | `_brain/changelog.md` | `log.md` at root | Create log.md, changelog becomes chapter-00 |
@@ -18,9 +18,9 @@
 | `/alive:add` | `walnut:add-to-world` | Skill rename |
 | owner-operator | worldbuilder | Vocabulary |
 
-## v4 → v1 (from Walnut 4.x (previous))
+## v4 → v0.1 (from Walnut 4.x (previous))
 
-| v4 | v1 | Action |
+| v4 | v0.1 | Action |
 |---|---|---|
 | `.claude/CLAUDE.md` per walnut | `key.md` at root | Merge identity into key.md |
 | `now.md` has type/goal | `key.md` has type/goal | Move evergreen fields to key.md |

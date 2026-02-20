@@ -1,6 +1,6 @@
 ---
 name: example-plugin
-version: 1.0.0
+version: 0.1.0
 description: Example ALIVE plugin — copy this as a starter for your own.
 author: Your Name
 license: MIT

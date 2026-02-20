@@ -1,7 +1,7 @@
 ---
 sub-skill: upgrade
 parent: world
-description: Migration from v3 or v4 to v1. Triggered when session-start detects an older system version.
+description: Migration from v3 or v4 to v0.1. Triggered when session-start detects an older system version.
 ---
 
 # Upgrade
@@ -21,7 +21,7 @@ Session-start outputs `▸ system v3` or `▸ system v4`. World routes here.
 ```
 squirrel:[id] waking up
 
-▸ system         [v3/v4] detected · upgrade available to v1
+▸ system         [v3/v4] detected · upgrade available to v0.1
 
 Your World remembers everything.
 It just needs to learn a new way to organize what it knows.
@@ -51,12 +51,12 @@ If "not now" — exit. The old system continues to work. Offer again next time.
 
 **From v4:** Archive `.claude/rules/system.md` and `.claude/rules/references/` → `01_Archive/system/v4-rules/`
 
-### 1.2 Install v1 rules
+### 1.2 Install v0.1 rules
 
 Copy from plugin source into `.claude/rules/`:
 
 ```
-▸ installing v1 rules
+▸ installing v0.1 rules
   squirrels.md    → .claude/rules/
   world.md        → .claude/rules/
   worldbuilder.md → .claude/rules/
@@ -66,7 +66,7 @@ Copy from plugin source into `.claude/rules/`:
 
 Archive the old CLAUDE.md → `01_Archive/system/`.
 
-Generate v1 world CLAUDE.md from template. Carry forward: name, goals, context sources, notes. Ask to confirm:
+Generate v0.1 world CLAUDE.md from template. Carry forward: name, goals, context sources, notes. Ask to confirm:
 
 ```
 Here's your updated World identity — anything to change?
@@ -124,7 +124,7 @@ For each:
    ```
    ## [today] — squirrel:[id]
 
-   Migrated from [v3/v4] to v1. Previous history in _chapters/chapter-00.md.
+   Migrated from [v3/v4] to v0.1. Previous history in _chapters/chapter-00.md.
 
    signed: squirrel:[id]
    ```
@@ -135,7 +135,7 @@ For each:
 
 8. Create `_squirrels/` directory
 
-9. Leave `_brain/` in place — it stops being read by v1
+9. Leave `_brain/` in place — it stops being read by v0.1
 
 ### From v4 (has now.md + log.md, no key.md)
 
@@ -267,12 +267,12 @@ If rename: `mv` the folder, update the symlink. If keep: symlink handles it eith
 ```
 ▸ upgrade complete
 
-  system:    Walnut v1
+  system:    Walnut v0.1
   walnuts:   [n] migrated
   cleanup:   [n] resolved
   path:      ~/world
 
-Your alive computer is running Walnut v1.
+Your alive computer is running Walnut v0.1.
 Run walnut:world to see your World.
 ```
 

@@ -1,12 +1,12 @@
 # Worldbuilder
 
-The person building the World. Not a user. Not a customer. An owner-operator with a vision and a system that compounds it.
+The person building the World. Not a user. Not a customer. A worldbuilder with a vision and a system that compounds it.
 
 ---
 
 ## The Deal
 
-Their World, their call. The squirrel reads, works, surfaces, and signs off. The worldbuilder decides what stays, what goes, where things live, and what matters.
+Their World, their call. The squirrel reads, works, surfaces, and closes. The worldbuilder decides what stays, what goes, where things live, and what matters.
 
 The system amplifies. It doesn't replace judgment, override decisions, or quietly "improve" things. If a squirrel can't tell what the worldbuilder wants, it asks. Once.
 
@@ -14,7 +14,7 @@ The system amplifies. It doesn't replace judgment, override decisions, or quietl
 
 ## How to Serve
 
-**Surface, don't decide.** Show what you found. Present the options. Let them choose. "This walnut hasn't been touched in 9 days. Still active?" — not: "I've archived this dormant walnut for you."
+**Surface, don't decide.** Show what you found. Present the options. Let them choose. "This walnut hasn't been touched in 9 days. Still active?" — not: "I've archived this waiting walnut for you."
 
 **One next action.** Every walnut has one `next:` in now.md. Not three priorities. Not a ranked list. The single most important thing. If you can't figure out what it is, ask.
 

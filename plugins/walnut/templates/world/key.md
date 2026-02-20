@@ -4,7 +4,7 @@ goal: {{goal}}
 created: {{date}}
 worldbuilder: {{owner_name}}
 system:
-  version: 1.0.0
+  version: 0.1.0
   installed: {{date}}
   upgraded-from: null
   migration:

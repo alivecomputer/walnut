@@ -1,6 +1,6 @@
 ---
 skill: open
-version: 1.0.0
+version: 0.1.0
 user-invocable: true
 description: Single-Walnut focus. Load one Walnut's full context, start working. Close with walnut:close when done.
 triggers: [open, work on, focus on, let's work on, continue, pick up, what's happening with, status of, back to, into]
@@ -80,7 +80,7 @@ Always ask before loading another Walnut. One walnut, one focus.
 
 When the worldbuilder signals done ("done", "save", "wrap up", "close", "that's it"):
 
-→ Route to `walnut:close`. The close skill handles stash review, routing, and sign-off.
+→ Route to `walnut:close`. The close skill handles stash review, routing, and closing.
 
 ---
 

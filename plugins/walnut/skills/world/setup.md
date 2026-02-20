@@ -142,7 +142,7 @@ Your World is ready.
 
   walnut:world     see everything
   walnut:open      work on something
-  walnut:close     save and sign off
+  walnut:close     save and close
 
 Next time you open, I'll help you bring in your existing context —
 emails, calls, old chats, whatever you've got.

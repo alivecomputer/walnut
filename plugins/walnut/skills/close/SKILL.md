@@ -1,6 +1,6 @@
 ---
 skill: close
-version: 1.0.0
+version: 0.1.0
 user-invocable: true
 description: Close a session. Review stash, route items to walnuts, sign log entries, regenerate now.md, sign squirrel entry.
 triggers: [close, done, save, wrap up, signing off, that's it, brb, stepping away, finished, done for now]

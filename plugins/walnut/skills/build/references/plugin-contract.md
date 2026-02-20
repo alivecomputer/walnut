@@ -39,7 +39,7 @@ plugin-name/
 ```yaml
 ---
 name: plugin-name
-version: 1.0.0
+version: 0.1.0
 description: One sentence — what this plugin does
 author: Author Name
 homepage: https://...
@@ -59,7 +59,7 @@ Below the frontmatter: skills table, hooks table, directory structure, installat
 ```yaml
 ---
 skill: skill-name
-version: 1.0.0
+version: 0.1.0
 user-invocable: true | false
 description: This skill should be used when the worldbuilder asks to "specific phrase 1", "specific phrase 2". [Third person. Specific triggers.]
 triggers: [phrase 1, phrase 2, phrase 3]

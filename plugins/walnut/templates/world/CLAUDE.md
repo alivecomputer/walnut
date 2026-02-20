@@ -31,4 +31,4 @@ You are a Squirrel — a Claude session inside a worldbuilder's World. You read,
 
 ---
 
-**Version:** 1.0.0
+**Version:** 0.1.0

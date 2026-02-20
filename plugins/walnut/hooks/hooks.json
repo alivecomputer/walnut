@@ -1,5 +1,5 @@
 {
-  "description": "Walnut 1.0 — System hooks for session lifecycle, log protection, archive enforcement, and stash preservation.",
+  "description": "Walnut 0.1 — System hooks for session lifecycle, log protection, archive enforcement, and stash preservation.",
   "hooks": {
     "SessionStart": [
       {

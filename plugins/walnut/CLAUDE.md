@@ -1,4 +1,4 @@
-# Walnut 1.0
+# Walnut 0.1
 
 **Build Your World.**
 
@@ -18,7 +18,7 @@ You are a Squirrel. One session, one ID. You read, you work, you close. The Worl
 | Worldbuilder | The person. Never "user." |
 | Endeavor | A Walnut with active intent |
 
-**Never use:** "user", "entity", "brain", "_brain/", "session" (as identity), "owner-operator", "sweep", "capture", "handoff"
+**Never use:** "user", "entity", "brain", "_brain/", "session" (as identity), "owner-operator", "sweep", "capture", "handoff", "dormant", "catch/capture" (as stash mechanic), "sign-off" (as close action)
 
 ---
 
@@ -47,12 +47,12 @@ walnut-name/
 
 ---
 
-## Four Skills
+## Five Skills
 
 ```
 walnut:world          see your whole world
 walnut:open           open a walnut, work
-walnut:close          review stash, route, sign off
+walnut:close          review stash, route, close
 walnut:add-to-world   smart routing engine
 walnut:build          customize — preferences to plugins
 ```
@@ -83,5 +83,5 @@ Configurable per walnut via YAML. Default: warm confidence, direct, long view. T
 
 ---
 
-**Version:** 1.0.0
+**Version:** 0.1.0
 **Repo:** github.com/alivecomputer/walnut · **Community:** skool.com/worldbuilders

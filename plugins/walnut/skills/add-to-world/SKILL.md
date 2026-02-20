@@ -1,6 +1,6 @@
 ---
 skill: add-to-world
-version: 1.0.0
+version: 0.1.0
 user-invocable: true
 description: Smart routing engine. Anything entering the World comes through here — stash items at close, pastes, files, links. Figures out what it's dealing with and where it goes.
 triggers: [add to world, add this, note this, remember this, here's some context, FYI, I decided, I learned, here's an email, from my call, process this, here's a file, dropping this in]

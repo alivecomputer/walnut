@@ -1,5 +1,5 @@
 #!/bin/bash
-# Walnut 1.0 — Session Start
+# Walnut 0.1 — Session Start
 # Detects World, sets Squirrel ID, creates .yaml entry, detects system version.
 # Input: JSON on stdin { "session_id": "...", "cwd": "..." }
 # Output: Context string injected into session

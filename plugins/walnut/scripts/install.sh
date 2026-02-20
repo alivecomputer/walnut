@@ -1,5 +1,5 @@
 #!/bin/bash
-# Walnut 1.0 — One-Command Installer
+# Walnut 0.1 — One-Command Installer
 # curl -sSL https://alivecomputer.com/install | bash
 #
 # This is the last time you use the terminal like this.
@@ -80,9 +80,9 @@ print_step "Installing ALIVE"
 if claude plugin list 2>/dev/null | grep -q "alive"; then
   print_skip "ALIVE plugin"
 else
-  claude plugin install alivecomputer/alive 2>/dev/null || {
+  claude plugin install alivecomputer/walnut 2>/dev/null || {
     printf "  Installing from GitHub...\n"
-    claude plugin install alivecomputer/alive
+    claude plugin install alivecomputer/walnut
   }
   print_ok "ALIVE plugin installed"
 fi
@@ -155,13 +155,13 @@ printf "\n"
 # Auto-launch Claude Code in the ALIVE folder
 cd "$ALIVE_PATH"
 if command -v claude &>/dev/null; then
-  exec claude --prompt "/alive:home"
+  exec claude --prompt "walnut:world"
 else
   # Fallback if claude isn't in PATH yet (fresh install, shell not reloaded)
   printf "  ${BOLD}Almost there. Run these two commands:${RESET}\n"
   printf "\n"
   printf "    ${DIM}cd $ALIVE_PATH && claude${RESET}\n"
-  printf "    ${DIM}then type:${RESET} ${AMBER}/alive:home${RESET}\n"
+  printf "    ${DIM}then type:${RESET} ${AMBER}walnut:world${RESET}\n"
   printf "\n"
   printf "  Your terminal just became an alive computer.\n"
   printf "  Welcome to your World.\n"
