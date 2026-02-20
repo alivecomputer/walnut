@@ -26,7 +26,29 @@ Show your reads:
 ▸ _scratch/   plugin-refactor-v0.1 — might be relevant
 ```
 
-Then ask: load full context, or just chat?
+### The Spark
+
+After reading the state, take a beat. Look at what you're seeing — the walnuts, the people, the timing, the next actions, what's quiet, what's loud. Make one observation the worldbuilder might not have seen. A connection, a question, an expansion of scope.
+
+```
+sovereign-systems hasn't been touched in 5 days but there are
+3 emails from Attila sitting in Gmail. Might be worth pulling
+those in before they go stale.
+```
+
+Or:
+
+```
+the plugin refactor scratch doc is 2 days old and now.md still
+says "test upgrade flow" as next. feels like that's done —
+next step might be running the upgrade on your own world.
+```
+
+One spark. Not a list. Not a briefing. Just: "here's what I notice." Then let the worldbuilder decide what to do with it.
+
+### Then
+
+Ask: load full context, or just chat?
 
 Frontmatter is always free to read. Don't pull the worldbuilder into a structured session unless they want it.
 
