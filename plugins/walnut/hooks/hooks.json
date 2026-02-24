@@ -1,5 +1,5 @@
 {
-  "description": "Walnut v0.2-beta — 10 command hooks for session lifecycle, log protection, archive enforcement, stash preservation, external action guard, and reference indexing.",
+  "description": "Walnut v0.1.0-beta — 10 namespaced command hooks. All prefixed walnut-*, all guarded to only fire inside ALIVE worlds.",
   "hooks": {
     "SessionStart": [
       {
@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session-new.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-session-new.sh",
             "timeout": 10
           }
         ]
@@ -17,7 +17,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session-resume.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-session-resume.sh",
             "timeout": 10
           }
         ]
@@ -27,7 +27,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/session-compact.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-session-compact.sh",
             "timeout": 10
           }
         ]
@@ -39,7 +39,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/log-guardian.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-log-guardian.sh",
             "timeout": 5
           }
         ]
@@ -49,7 +49,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/archive-enforcer.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-archive-enforcer.sh",
             "timeout": 5
           }
         ]
@@ -59,7 +59,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/external-guard.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-external-guard.sh",
             "timeout": 5
           }
         ]
@@ -71,7 +71,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/working-signer.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-working-signer.sh",
             "timeout": 5
           }
         ]
@@ -81,7 +81,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/reference-indexer.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-reference-indexer.sh",
             "timeout": 5
           }
         ]
@@ -92,7 +92,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/pre-compact.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-pre-compact.sh",
             "timeout": 10
           }
         ]
@@ -103,7 +103,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/save-check.sh",
+            "command": "bash ${CLAUDE_PLUGIN_ROOT}/hooks/scripts/walnut-save-check.sh",
             "timeout": 5
           }
         ]

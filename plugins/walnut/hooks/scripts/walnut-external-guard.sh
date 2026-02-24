@@ -1,4 +1,16 @@
 #!/bin/bash
+
+# Walnut namespace guard — only fire inside an ALIVE world
+find_world() {
+  local dir="${CLAUDE_PROJECT_DIR:-$PWD}"
+  while [ "$dir" \!= "/" ]; do
+    if [ -d "$dir/01_Archive" ] && [ -d "$dir/02_Life" ]; then return 0; fi
+    dir="$(dirname "$dir")"
+  done
+  return 1
+}
+find_world || exit 0
+
 # Hook 6: External Guard — PreToolUse (mcp__.*)
 # Escalates external write actions to user for confirmation.
 # Read-only actions pass silently.

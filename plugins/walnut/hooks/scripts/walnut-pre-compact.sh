@@ -1,4 +1,16 @@
 #!/bin/bash
+
+# Walnut namespace guard — only fire inside an ALIVE world
+find_world() {
+  local dir="${CLAUDE_PROJECT_DIR:-$PWD}"
+  while [ "$dir" \!= "/" ]; do
+    if [ -d "$dir/01_Archive" ] && [ -d "$dir/02_Life" ]; then return 0; fi
+    dir="$(dirname "$dir")"
+  done
+  return 1
+}
+find_world || exit 0
+
 # Hook: PreCompact — command only
 # Writes current stash to squirrel YAML before context compression.
 # Cannot inject context back — SessionStart(compact) handles re-injection.
@@ -25,7 +37,12 @@ TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%S")
 if ! grep -q 'compacted:' "$ENTRY"; then
   echo "compacted: $TIMESTAMP" >> "$ENTRY"
 else
-  sed -i '' "s/compacted:.*/compacted: $TIMESTAMP/" "$ENTRY"
+  # Cross-platform sed (BSD + GNU)
+  if sed --version >/dev/null 2>&1; then
+    sed -i "s/compacted:.*/compacted: $TIMESTAMP/" "$ENTRY"
+  else
+    sed -i '' "s/compacted:.*/compacted: $TIMESTAMP/" "$ENTRY"
+  fi
 fi
 
 exit 0

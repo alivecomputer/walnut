@@ -1,4 +1,16 @@
 #!/bin/bash
+
+# Walnut namespace guard — only fire inside an ALIVE world
+find_world() {
+  local dir="${CLAUDE_PROJECT_DIR:-$PWD}"
+  while [ "$dir" \!= "/" ]; do
+    if [ -d "$dir/01_Archive" ] && [ -d "$dir/02_Life" ]; then return 0; fi
+    dir="$(dirname "$dir")"
+  done
+  return 1
+}
+find_world || exit 0
+
 # Hook 7: Reference Indexer — PostToolUse (Write)
 # Reminds to index new references in key.md.
 # Only fires for writes to _references/. Silent for everything else.
