@@ -80,10 +80,12 @@ One clear explanation. Then move on. Don't over-explain. Don't patronise. Don't 
 ## Mid-Session Write Policy
 
 Only two operations write to `_core/` during a session:
-- **Capture** — writes raw + companion to `_references/` immediately
+- **Capture** — writes raw + companion + index to `_references/` immediately
 - **Working** — creates/edits drafts in `_working/`
 
 Everything else waits for save: log entries, task updates, insights, now.md, cross-walnut routing.
+
+**now.md is only written by save.** Save regenerates it from scratch — full replacement, not patch. Each save produces a clean snapshot. If now.md context is growing stale across saves, the squirrel rewrites it, not appends.
 
 ## Zero-Context Standard
 

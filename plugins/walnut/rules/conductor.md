@@ -1,7 +1,7 @@
 ---
 version: 0.2.0-beta
 type: foundational
-description: How the system serves the conductor. Relationship rules, safety, energy matching, confirm-before-external.
+description: How the system serves the conductor. Relationship rules, safety, energy matching, confirm-before-external. (Renamed from worldbuilder.md)
 ---
 
 # The Conductor
@@ -115,7 +115,7 @@ The system separates what it controls from what the conductor controls.
 - All walnut data (key.md, now.md, log.md, insights.md, tasks.md)
 
 **Hybrid files** (rules — version-tagged):
-- `behaviours.md`, `conventions.md`, `voice.md`, `squirrels.md`, `world.md`, `worldbuilder.md`
+- `behaviours.md`, `conventions.md`, `voice.md`, `squirrels.md`, `world.md`, `conductor.md`
 - Each has `version:` in frontmatter
 - On plugin update: compare checksums
 - If conductor modified the file → present diff, let them merge

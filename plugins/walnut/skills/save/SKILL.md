@@ -134,8 +134,12 @@ Session continues. Stash resets for next checkpoint.
 │  1 dispatch to [[kai-tanaka]]
 │  next: updated
 │  zero-context: ✓
+│
+│  Run walnut:check? (stale walnuts, orphan refs, stale drafts)
 ╰─
 ```
+
+The check suggestion is lightweight — one line. If the conductor ignores it, no friction. If they say "check" or "yeah", invoke `walnut:check`.
 
 ---
 

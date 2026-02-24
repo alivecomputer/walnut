@@ -69,7 +69,7 @@ All squirrel notifications use bordered blocks:
 |-----|-----------|
 | walnut | unit, entity, node |
 | squirrel | agent, bot, AI |
-| conductor | user, owner, operator, worldbuilder |
+| conductor | user, owner, operator |
 | stash | catch, capture (as noun) |
 | save | close, sign-off |
 | capture | add, import, ingest |

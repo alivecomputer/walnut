@@ -97,54 +97,83 @@ For sending a specific piece to another person.
 
 ---
 
-## API Contract
+## API Contract (walnut.world)
 
+**Publish files:**
 ```
-POST /api/publish
-Headers:
-  X-Walnut-Keyphrase: [conductor's keyphrase]
+POST https://walnut.world/api/link/publish
 Body:
   {
-    "slug": "orbital-safety-brief",
-    "content": "<html>...</html>",
-    "title": "Orbital Safety Brief",
-    "walnut": "nova-station",
-    "mode": "preview" | "publish",
-    "visibility": "private" | "token"
+    "name": "nova-station",           // your claimed name
+    "keyphrase": "your-keyphrase",    // set on claim
+    "files": [
+      {
+        "path": "index.html",         // or "orbital-brief/index.html"
+        "content": "<html>...</html>",
+        "contentType": "text/html"
+      },
+      {
+        "path": "style.css",
+        "content": "body { ... }",
+        "contentType": "text/css"
+      }
+    ],
+    "access": {
+      "defaults": {
+        "indexable": false,            // noindex by default
+        "noCrawl": true,              // block crawlers by default
+        "password": null               // no password by default (keyphrase is enough)
+      },
+      "paths": {
+        "shared/": {
+          "password": "share-token-123"  // password protect specific paths
+        }
+      }
+    }
   }
 Response:
   {
-    "url": "https://you.walnut.world/orbital-safety-brief",
-    "token_url": "..."  // if visibility=token
+    "ok": true,
+    "url": "https://nova-station.walnut.world",
+    "files": 2
   }
+```
 
-GET /api/index
-Headers:
-  X-Walnut-Keyphrase: [conductor's keyphrase]
-Response:
-  {
-    "items": [
-      { "slug": "...", "title": "...", "walnut": "...", "mode": "...", "published_at": "..." }
-    ]
-  }
+**Unpublish:**
+```
+POST https://walnut.world/api/link/unpublish
+Body: { "name": "nova-station", "keyphrase": "...", "path": "orbital-brief/" }
+```
 
-DELETE /api/publish/:slug
-Headers:
-  X-Walnut-Keyphrase: [conductor's keyphrase]
+**Claim a name:**
+```
+POST https://walnut.world/api/name/reserve
+Body: { "name": "nova-station", "keyphrase": "your-keyphrase" }
 ```
 
 ## Keyphrase Auth
 
-Stored in `.env.local` as `WALNUT_KEYPHRASE`. The publish script reads it. No passwords in walnut files.
+Two env vars in `.env.local`:
+- `WALNUT_NAME` — your claimed name (e.g., "nova-station")
+- `WALNUT_KEYPHRASE` — set when you claimed it
 
-If no keyphrase is set, the squirrel offers to claim one:
+If neither is set, the squirrel offers to claim:
 
 ```
-╭─ 🐿️ no walnut.world keyphrase found.
-│  Claim your link at walnut.world to start publishing.
+╭─ 🐿️ no walnut.world link found.
+│  Claim yours at walnut.world to start publishing.
 │  What name do you want? (e.g., nova-station.walnut.world)
 ╰─
 ```
+
+## How Publish Works Under the Hood
+
+1. Squirrel renders markdown → HTML (with default viewer template)
+2. Calls `POST /api/link/publish` with name, keyphrase, and files array
+3. Files stored in Vercel Blob at `links/{name}/{path}`
+4. Accessible at `{name}.walnut.world/{path}`
+5. Password protection per path via `access.paths`
+6. Token sharing = password-protected path with the password as the "token"
 
 ---
 
