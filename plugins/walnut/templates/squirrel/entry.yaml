@@ -5,5 +5,6 @@ walnut: {{walnut}}
 started: {{timestamp}}
 ended: null
 signed: false
+tags: []
 stash: []
 working: []
