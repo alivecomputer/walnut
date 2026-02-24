@@ -42,7 +42,7 @@ walnut:open       open a walnut
 walnut:save       checkpoint — route stash, update state
 walnut:capture    context in — store, route
 walnut:find       search content across walnuts
-walnut:tidy       tidy up — stale, broken, orphaned
+walnut:housekeeping  system maintenance — stale, broken, orphaned
 walnut:config     customize how it works
 walnut:publish    context out — preview, publish, share
 walnut:recall     rebuild context from previous sessions
