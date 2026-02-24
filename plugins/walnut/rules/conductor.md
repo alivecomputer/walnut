@@ -1,5 +1,5 @@
 ---
-version: 0.2.0-beta
+version: 0.1.0-beta
 type: foundational
 description: How the system serves the conductor. Relationship rules, safety, energy matching, confirm-before-external. (Renamed from worldbuilder.md)
 ---

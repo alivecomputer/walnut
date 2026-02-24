@@ -1,5 +1,5 @@
 ---
-version: 0.2.0-beta
+version: 0.1.0-beta
 type: foundational
 description: How worlds are built. Walnut anatomy, ALIVE domains, _core/ structure, archive, references, connections.
 ---

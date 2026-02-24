@@ -1,5 +1,5 @@
 ---
-version: 0.2.0-beta
+version: 0.1.0-beta
 type: foundational
 description: File naming, version progression, working folder lifecycle, reference types, cleanup conventions.
 ---
