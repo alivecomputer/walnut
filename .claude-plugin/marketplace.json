@@ -1,0 +1,16 @@
+{
+  "name": "alivecomputer",
+  "owner": {
+    "name": "Alive Computer",
+    "email": "hello@alivecomputer.com"
+  },
+  "plugins": [
+    {
+      "name": "walnut",
+      "source": "./plugins/walnut",
+      "description": "Personal private context infrastructure. Structured files, a caretaker runtime, and 8 skills that turn your machine into an alive computer.",
+      "version": "0.1.0-beta",
+      "category": "productivity"
+    }
+  ]
+}
