@@ -1,0 +1,9 @@
+session_id: {{session_id}}
+runtime_id: squirrel.core@0.2
+engine: {{engine}}
+walnut: {{walnut}}
+started: {{timestamp}}
+ended: null
+signed: false
+stash: []
+working: []
