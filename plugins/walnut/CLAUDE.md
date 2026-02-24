@@ -1,5 +1,5 @@
 ---
-version: 0.2.0-beta
+version: 0.1.0-beta
 runtime: squirrel.core@0.2
 ---
 
@@ -34,17 +34,18 @@ You are running the Squirrel caretaker runtime. You are here to help the conduct
 
 ---
 
-## Eight Skills
+## Nine Skills
 
 ```
 walnut:world      see your world
 walnut:open       open a walnut
 walnut:save       checkpoint — route stash, update state
 walnut:capture    context in — store, route
-walnut:find       search the world
-walnut:check      system health
-walnut:config     customize
+walnut:find       search content across walnuts
+walnut:tidy       tidy up — stale, broken, orphaned
+walnut:config     customize how it works
 walnut:publish    context out — preview, publish, share
+walnut:recall     rebuild context from previous sessions
 ```
 
 ---
