@@ -1,5 +1,4 @@
 ---
-name: publish
 description: Context out. Preview drafts on your phone, publish to your walnut.world, share via token links.
 user-invocable: true
 triggers:

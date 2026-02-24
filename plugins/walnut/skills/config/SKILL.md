@@ -1,5 +1,4 @@
 ---
-name: config
 description: Customize how the system works. Preferences, walnut-level config, custom skills, plugins.
 user-invocable: true
 triggers:

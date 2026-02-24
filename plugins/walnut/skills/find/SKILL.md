@@ -1,5 +1,4 @@
 ---
-name: find
 description: Search the world. Past decisions, people, files, references, insights — one verb for all retrieval.
 user-invocable: true
 triggers:

@@ -1,5 +1,4 @@
 ---
-name: housekeeping
 description: System housekeeping. Stale walnuts, broken references, unsigned entries, stale drafts. Starts by scanning what squirrels have been up to.
 user-invocable: true
 triggers:

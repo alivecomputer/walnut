@@ -1,5 +1,4 @@
 ---
-name: world
 description: See your whole world. Dashboard, attention items, system state detection. Entry point for everything.
 user-invocable: true
 triggers:

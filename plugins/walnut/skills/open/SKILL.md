@@ -1,5 +1,4 @@
 ---
-name: open
 description: Open one walnut. Load context, focus, work. Single-walnut attention.
 user-invocable: true
 triggers:

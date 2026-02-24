@@ -1,5 +1,4 @@
 ---
-name: save
 description: Checkpoint. Route stash, update state, keep working. Multiple saves per session.
 user-invocable: true
 triggers:

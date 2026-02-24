@@ -1,5 +1,4 @@
 ---
-name: recall
 description: Rebuild context from previous sessions. Browse, query, combine, and revive squirrel sessions — including full conversation transcripts.
 user-invocable: true
 triggers:

@@ -1,5 +1,4 @@
 ---
-name: capture
 description: Bring context in. Store as reference, route everywhere. The most important skill in the system.
 user-invocable: true
 triggers:
