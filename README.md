@@ -1,7 +1,7 @@
 ---
 name: walnut
 version: 0.1.0-beta
-description: Personal private context infrastructure. Structured files, a caretaker runtime, and 8 skills that turn your machine into an alive computer.
+description: Personal private context infrastructure. Structured files, a caretaker runtime, and 9 skills that turn your machine into an alive computer.
 author: Alive Computer
 homepage: https://alivecomputer.com
 repository: https://github.com/alivecomputer/walnut
@@ -13,7 +13,7 @@ license: MIT
 
 **Personal Private Context Infrastructure**
 
-The successor to the personal computer starts with a file system. Walnut is personal private context infrastructure — structured files, a caretaker runtime (the Squirrel), and 8 skills that turn your machine into a sovereign context node.
+The successor to the personal computer starts with a file system. Walnut is personal private context infrastructure — structured files, a caretaker runtime (the Squirrel), and 9 skills that turn your machine into a sovereign context node.
 
 ## Install
 
@@ -23,7 +23,7 @@ claude plugin install alivecomputer/walnut
 
 ## What You Get
 
-- **8 skills:** world, open, save, capture, find, check, config, publish
+- **9 skills:** world, open, save, capture, find, housekeeping, config, publish, recall
 - **6 rules:** behaviours, conventions, voice, squirrels, world, worldbuilder
 - **10 hooks:** session lifecycle, log protection, archive enforcement, stash preservation
 - **Templates:** walnut scaffold, 7 companion types, squirrel entry
