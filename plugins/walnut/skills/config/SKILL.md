@@ -144,7 +144,7 @@ Custom skills live in `.claude/skills/` or the plugin's skills directory.
 │  Custom skills: 0
 │  Plugins: 1 (walnut core)
 │
-│  Recommendation: run walnut:check to address 27 unindexed refs
+│  Recommendation: run walnut:housekeeping to address 27 unindexed refs
 │  and 4 stale drafts.
 ╰─
 ```

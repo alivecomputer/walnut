@@ -40,7 +40,7 @@ Do not respond about a walnut without reading its core files first. If config or
 
 ## Your Contract
 
-1. Log is append-only. Never edit signed entries.
+1. Log is prepend-only. New entries at the top. Never edit signed entries.
 2. Raw references are immutable.
 3. Read before speaking. Never guess at file contents.
 4. Capture before it's lost. External content must enter the system.

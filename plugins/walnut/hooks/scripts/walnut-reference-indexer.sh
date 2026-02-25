@@ -3,7 +3,7 @@
 # Walnut namespace guard — only fire inside an ALIVE world
 find_world() {
   local dir="${CLAUDE_PROJECT_DIR:-$PWD}"
-  while [ "$dir" \!= "/" ]; do
+  while [ "$dir" != "/" ]; do
     if [ -d "$dir/01_Archive" ] && [ -d "$dir/02_Life" ]; then return 0; fi
     dir="$(dirname "$dir")"
   done
@@ -11,28 +11,33 @@ find_world() {
 }
 find_world || exit 0
 
-# Hook 7: Reference Indexer — PostToolUse (Write)
-# Reminds to index new references in key.md.
-# Only fires for writes to _references/. Silent for everything else.
+# Hook 7: Reference Companion Check — PostToolUse (Write)
+# Checks that companion files in _references/ have description: in frontmatter.
+# Silent for non-reference writes.
 
 INPUT=$(cat)
 FILE_PATH=$(echo "$INPUT" | jq -r '.tool_input.file_path // empty')
 
-# Only care about files in _references/
-if ! echo "$FILE_PATH" | grep -q '_references/'; then
+# Only care about .md files in _references/ (companions)
+if ! echo "$FILE_PATH" | grep -q '_references/.*\.md$'; then
   exit 0
 fi
 
-# Don't fire for index.md itself
-if echo "$FILE_PATH" | grep -q '_references/index\.md$'; then
+# Skip raw/ files
+if echo "$FILE_PATH" | grep -q '/raw/'; then
   exit 0
 fi
 
-# Remind to index
+# Check if companion has description: in frontmatter
+if [ -f "$FILE_PATH" ] && head -15 "$FILE_PATH" | grep -q 'description:'; then
+  exit 0
+fi
+
+# Remind — companion needs description
 jq -n '{
   hookSpecificOutput: {
     hookEventName: "PostToolUse",
-    additionalContext: "New reference written. Index it in key.md under references: (type, date, description). If key.md has 30+ references, drop the oldest — it still lives in _core/_references/index.md."
+    additionalContext: "Reference companion written but missing description: in frontmatter. Add a one-line description so this reference is scannable."
   }
 }'
 exit 0

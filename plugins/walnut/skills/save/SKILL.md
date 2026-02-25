@@ -159,7 +159,7 @@ Not a vibe check. A concrete checklist. Run through each:
 
 If anything fails, fix it before completing the save. This is the last gate.
 
-### 7. Continue
+### 9. Continue
 
 Session continues. Stash resets for next checkpoint.
 
@@ -171,11 +171,11 @@ Session continues. Stash resets for next checkpoint.
 │  next: updated
 │  zero-context: ✓
 │
-│  Run walnut:check? (stale walnuts, orphan refs, stale drafts)
+│  Run walnut:housekeeping? (stale walnuts, orphan refs, stale drafts)
 ╰─
 ```
 
-The check suggestion is lightweight — one line. If the conductor ignores it, no friction. If they say "check" or "yeah", invoke `walnut:check`.
+The check suggestion is lightweight — one line. If the conductor ignores it, no friction. If they say "check" or "yeah", invoke `walnut:housekeeping`.
 
 ---
 

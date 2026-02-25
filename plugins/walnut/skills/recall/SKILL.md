@@ -211,7 +211,7 @@ Different platforms store session data in different places. The squirrel doesn't
 ## What Recall Is NOT
 
 - Not `walnut:find` — find searches content across walnuts. Recall searches sessions.
-- Not `walnut:check` — check surfaces broken things. Recall surfaces past context.
+- Not `walnut:housekeeping` — check surfaces broken things. Recall surfaces past context.
 - Not a log viewer — log.md has the signed record. Recall has the full conversation.
 
 The log tells you WHAT was decided. Recall tells you WHY, in context, with every exchange that led to it.

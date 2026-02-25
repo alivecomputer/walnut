@@ -82,10 +82,6 @@ people:
     email: ada@novastation.space
 tags: [orbital, tourism, engineering]
 links: [[ada-chen]], [[glass-cathedral]]
-references:
-  - type: transcript
-    date: 2026-02-23
-    description: Kai shielding vendor review
 published:
   - slug: orbital-safety-brief
     url: https://you.walnut.world/orbital-safety-brief

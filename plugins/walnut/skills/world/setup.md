@@ -140,7 +140,7 @@ Call `/api/name/reserve`. Store `WALNUT_NAME` and `WALNUT_KEYPHRASE` in `.env.lo
 │  Link: nova-station.walnut.world
 │
 │  9 skills ready:
-│    world · open · save · capture · find · tidy · config · publish · recall
+│    world · open · save · capture · find · housekeeping · config · publish · recall
 │
 │  Say "open nova-station" to start working.
 │  Say "world" anytime to see everything.

@@ -85,7 +85,7 @@ One walnut, one focus. Ask before expanding to other walnuts. Ask before creatin
 
 These are the rules that make agents interchangeable. Any agent loading the squirrel runtime must follow these:
 
-1. **Log is append-only.** Never edit or delete existing entries. Wrong entry → add correction above.
+1. **Log is prepend-only.** New entries at the top. Never edit or delete existing entries. Wrong entry → add correction above.
 2. **Raw references are immutable.** Once captured, raw files don't change.
 3. **Projections are derived.** now.md, tasks.md, insights.md can be regenerated from log.md + key.md. Never treat projections as the only copy of information.
 4. **Every write is signed.** Log entries, squirrel entries, working files — all carry session_id, runtime_id, engine.
