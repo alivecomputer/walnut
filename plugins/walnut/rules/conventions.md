@@ -1,12 +1,43 @@
 ---
 version: 0.1.0-beta
 type: foundational
-description: File naming, version progression, working folder lifecycle, reference types, cleanup conventions.
+description: Frontmatter, file naming, version progression, working folder lifecycle, reference system, signing.
 ---
 
 # Conventions
 
 The boring infrastructure that prevents entropy. Every file follows these. No exceptions.
+
+---
+
+## Frontmatter on Everything
+
+**This is the most important convention in the system.**
+
+Every `.md` file in the system has YAML frontmatter. No exceptions. The frontmatter is the scannable layer — a squirrel reads frontmatter before bodies. If a file doesn't have frontmatter, it's malformed.
+
+| File type | Required frontmatter |
+|-----------|---------------------|
+| System files (key, now, log, insights, tasks) | Schema defined in world.md |
+| Working files | squirrel, model, version, previous, kept, changed |
+| Companions | type, description, type-specific fields, squirrel, tags |
+| Rules | version, type, description |
+| Skills | description, triggers |
+
+**Every companion must have `description:` in frontmatter.** This is the one-line scan that tells the squirrel what the reference contains without reading the body. It's the difference between a useful reference system and a pile of files.
+
+---
+
+## Signing
+
+Every file the squirrel creates or modifies carries attribution:
+
+- `squirrel: [session_id]` — which session created/modified it
+- `model: [engine]` — which AI model was running
+
+Log entries are additionally signed at the end: `signed: squirrel:[session_id]`
+
+Squirrel entries carry the full metadata: session_id, runtime_id, engine, walnut, timestamps.
 
 ---
 
@@ -111,62 +142,72 @@ When `_core/_working/` accumulates related files:
 - **3+ related files with shared prefix** → graduate to a proper folder with README
 - **Versioned files (v1, v2, v3)** → graduate to a folder
 
-```
-# Before
-_working/
-  nova-safety-research-v0.1.md
-  nova-safety-checklist-v0.1.md
-  nova-safety-regs-v0.1.md
-
-# After
-_working/
-  nova-safety/
-    README.md
-    research-v0.1.md
-    checklist-v0.1.md
-    regs-v0.1.md
-```
-
 ### Stale Drafts
 
-Working files unchanged for 30+ days are surfaced by `walnut:check`:
+Working files unchanged for 30+ days are surfaced by `walnut:housekeeping`:
 - **Promote** → graduate to v1, move to live context
 - **Archive** → move to `01_Archive/`
 - **Kill** → delete (the only place deletion is acceptable — drafts are disposable)
 
 ---
 
-## Reference Conventions
+## Reference System
 
-### Three-Tier Access
+The reference system is the three-tiered context layer. It handles ALL external content entering the walnut.
 
-1. **Index** — `key.md` references field (rolling 30 most recent). Scan to know what exists.
-2. **Companion** — `.md` file with type-specific frontmatter. Read to understand contents.
-3. **Raw** — the actual file. Load only on explicit request.
+### Three Tiers
 
-The squirrel reads tier 1 at open, tier 2 on demand, tier 3 only when specifically asked.
+1. **Scan** — Companion frontmatter. The squirrel scans `_core/_references/**/*.md` and reads YAML headers (type, description, date, tags). This IS the index. No separate index file needed. **References do NOT go in key.md.** key.md is identity. References are captured content. Their frontmatter is the scan layer.
+2. **Read** — Companion body. AI-generated structured summary. Detailed enough you rarely need the raw file.
+3. **Deep** — The raw file itself. Only loaded on explicit request.
+
+The squirrel scans tier 1 (companion frontmatter) at open or on demand. Goes to tier 2 (companion body) when specific context is needed. Goes to tier 3 (raw) only when specifically asked.
+
+### Companion Structure
+
+Every companion has:
+
+**Frontmatter** (tier 1 scan):
+```yaml
+---
+type: transcript
+description: Kai shielding vendor review — shortlisted 3 options, decision pending
+participants: [You, Kai Tanaka]
+duration: 45m
+platform: Fathom
+date: 2026-02-23
+squirrel: 2a8c95e9
+tags: [shielding, vendors, engineering]
+original_filename: recording-2026-02-23.mp3
+---
+```
+
+**Body** (tier 2 read — AI-generated summary):
+The body is a structured summary written by the squirrel at capture time. It should be detailed enough that reading the raw file is rarely necessary.
+
+- `## Summary` — 2-5 sentences on what this is and why it matters
+- `## Key Points` — specific facts, data, claims
+- `## Action Items` — tasks, commitments, deadlines (also stashed)
+- `## Source` — pointer to raw file path
 
 ### Type-Specific Frontmatter
 
-Every companion has frontmatter matching its content type:
-
 | Type | Required fields |
 |------|----------------|
-| email | from, to, subject, date |
-| transcript | participants, duration, platform, date |
-| screenshot | source, analysis, date |
-| document | author, source, date |
-| message | from, platform, date |
-| article | author, publication, url, date |
-| research | topic, sources, squirrel, date |
+| email | from, to, subject, date, description |
+| transcript | participants, duration, platform, date, description |
+| screenshot | source, date, description |
+| document | author, source, date, description |
+| message | from, platform, date, description |
+| article | author, publication, url, date, description |
+| research | topic, sources, squirrel, date, description |
 
-All companions also include: `type`, `squirrel`, and optionally `original_filename`.
+All companions also include: `type`, `description`, `squirrel`, `tags`, and optionally `original_filename`.
 
 ### Reference Organisation
 
 ```
 _core/_references/
-  index.md              ← full list (projection, auto-generated)
   transcripts/
     raw/
     [companions]
@@ -183,29 +224,3 @@ _core/_references/
     [companions only — no raw for in-session research]
 ```
 
----
-
-## Frontmatter on Everything
-
-Every `.md` file in the system has YAML frontmatter. No exceptions.
-
-- System files (key.md, now.md, log.md, insights.md, tasks.md) — schema defined in world.md
-- Working files — squirrel, model, version, previous, kept, changed
-- Companions — type-specific fields + squirrel
-- Rules — version, type, description
-- Skills — name, description, triggers
-
-The frontmatter is the scannable layer. A squirrel reads frontmatter before bodies. If a file doesn't have frontmatter, it's malformed.
-
----
-
-## Signing
-
-Every file the squirrel creates or modifies carries attribution:
-
-- `squirrel: [session_id]` — which session created/modified it
-- `model: [engine]` — which AI model was running
-
-Log entries are additionally signed at the end: `signed: squirrel:[session_id]`
-
-Squirrel entries carry the full metadata: session_id, runtime_id, engine, walnut, timestamps.

@@ -25,6 +25,22 @@ An agent instance runs the squirrel runtime to care for a walnut. The agent is r
 
 ---
 
+## Core Read Sequence (every session, non-negotiable)
+
+At the start of EVERY session, before doing anything else, the squirrel reads these files in order:
+
+1. `_core/key.md` — full file (identity, people, links, references)
+2. `_core/now.md` — full file (current state, next action, context)
+3. `_core/tasks.md` — full file (work queue)
+4. `_core/insights.md` — frontmatter only (what domain knowledge sections exist)
+5. `_core/log.md` — frontmatter + last 2 entries (recent history)
+6. `_core/_squirrels/` — scan for unsigned entries
+7. `_core/_working/` — **frontmatter only** (what drafts exist, not their full content)
+
+This is NOT just for the open skill. This is a rule. Any skill, any session, any context — the squirrel reads these before speaking. If a `_core/config.yaml` exists, read that too.
+
+---
+
 ## The Stash
 
 The squirrel's running list of things worth keeping. Lives in conversation — no file writes (except checkpoint). Just a list carried forward.
@@ -54,11 +70,14 @@ No change = no stash shown. "drop", "nah", "remove that" = gone. Keep talking = 
 - People updates (new info about someone)
 - Connections to other walnuts noticed
 - Open questions raised
+- **Insight candidates** — standing domain knowledge that might be evergreen. Stash it, confirm at save.
+- **Quotes** — when the conductor says something sharp, memorable, or defining, stash it verbatim. When the agent produces a framing the conductor loves, stash that too. Attribute each: `"quote" — conductor` or `"quote" — squirrel`. These are save-worthy moments.
+- **Bold phrases from captured references** — when walnut:capture extracts content, any powerful or insightful phrases should be stashed for potential routing to insights or log entries.
 
 ### What Doesn't Get Stashed
 
-- Things fully resolved in conversation (unless they produced a decision or insight)
-- Context already captured via `walnut:capture`
+- Things fully resolved in conversation (unless they produced a decision, insight, or quote)
+- Context already captured via `walnut:capture` (but insights FROM captured content still get stashed)
 - Idle observations that don't affect anything
 
 ### Stash Checkpoint (Crash Insurance)

@@ -101,9 +101,21 @@ Read current `now.md` next: field. Did we address it?
 
 If previous next: was NOT completed and is being replaced, it moves to tasks.md with context.
 
-### 4. Route
+### 4. Write Log Entry
 
-For each confirmed item:
+**Before writing anything else, prepend a signed entry to log.md.** This is the primary record of what happened. Use the log-entry template structure:
+
+- What happened (brief narrative)
+- Decisions made (with rationale — WHY, not just WHAT)
+- Tasks created or completed
+- References captured
+- Next actions identified
+
+The log entry must be written BEFORE updating now.md. The log is truth. Everything else derives from it.
+
+### 5. Route
+
+For each confirmed stash item:
 - **Existing walnut** → prepend signed log entry
 - **New person** → scaffold person walnut in `02_Life/people/`
 - **New venture/experiment** → scaffold walnut with _core/
@@ -111,12 +123,16 @@ For each confirmed item:
 - **Insight** → add to appropriate `_core/insights.md` (only if confirmed as evergreen)
 - **Cross-walnut note** → dispatch to destination walnut log (brief entry, not full session)
 
-### 5. Update State
+### 6. Update State
 
-- `now.md` — phase, health, next, updated, squirrel, context paragraph
+**Before rewriting now.md, re-read log.md** (at minimum the last 2-3 entries). This ensures the now.md context paragraph reflects the full picture, not just what happened in this session.
+
+**Protect existing context.** If the current session was minor (quick chat, small update) but the existing now.md has rich context from a previous deep session — do NOT overwrite it entirely. Merge the new information in. The test: is the new now.md MORE informative than the old one? If not, keep what was there and add to it.
+
+- `now.md` — phase, health, next, updated, squirrel, context paragraph (full replacement only if this session was substantive)
 - `tasks.md` — add new, mark completed, update in-progress
 
-### 6. Zero-Context Check
+### 7. Zero-Context Check
 
 "Would a new squirrel have full context?"
 

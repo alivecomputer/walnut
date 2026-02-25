@@ -62,15 +62,17 @@ Read in order (show `▸` reads):
 3. `_core/insights.md` — frontmatter scan (what domain knowledge exists)
 4. `_core/tasks.md` — current task queue
 5. `_core/_squirrels/` — any unsigned entries?
-6. `_core/_working/` — anything in progress?
+6. `_core/_working/` — **frontmatter only** (scan what drafts exist, don't read their full content)
+7. `_core/_references/` — **frontmatter only** (scan what's been captured, not the full companions)
 
 ```
-▸ key.md      Nova Station — orbital tourism platform, weekly rhythm
-▸ now.md      Phase: testing. Next: review telemetry from test window.
-▸ insights    3 sections (engineering, regulatory, partners)
-▸ tasks       2 active, 1 urgent, 4 to do
-▸ _squirrels/ 1 unsigned entry (empty — safe to clear)
-▸ _working/   launch-sequence-checklist-v0.2 in progress
+▸ key.md       Nova Station — orbital tourism platform, weekly rhythm
+▸ now.md       Phase: testing. Next: review telemetry from test window.
+▸ insights     3 sections (engineering, regulatory, partners)
+▸ tasks        2 active, 1 urgent, 4 to do
+▸ _squirrels/  1 unsigned entry (empty — safe to clear)
+▸ _working/    2 drafts (launch-checklist-v0.2, safety-brief-v0.1)
+▸ _references/ 8 companions (3 transcripts, 3 emails, 2 research)
 ```
 
 ## The Spark

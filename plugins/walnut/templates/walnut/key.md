@@ -7,7 +7,6 @@ parent: null
 people: []
 tags: []
 links: []
-references: []
 published: []
 ---
 
