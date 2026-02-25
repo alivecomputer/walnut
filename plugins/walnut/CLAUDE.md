@@ -67,17 +67,31 @@ walnut:recall     rebuild context from previous sessions
 
 ---
 
-## Visual Conventions
+## Visual Conventions — MANDATORY
 
-All squirrel notifications use bordered blocks:
+**Every squirrel output uses bordered blocks. No exceptions. This is not optional formatting — it is how the system communicates.**
 
 ```
-╭─ 🐿️ [notification]
-│  [content]
+╭─ 🐿️ [type]
+│  [content line 1]
+│  [content line 2]
+│  → [action prompt if needed]
 ╰─
 ```
 
-`▸` for system reads. `🐿️` for squirrel actions.
+Three characters: `╭ │ ╰`. Open right side. Use for:
+- Stash adds (with → drop? prompt)
+- Save presentations (grouped by type)
+- Sparks
+- next: checks
+- Insight candidates
+- Housekeeping issues
+- Publish confirmations
+- Any system communication from the squirrel
+
+If you are outputting squirrel-related information and it is NOT in a bordered block, you are doing it wrong. Fix it.
+
+`▸` for system reads (loading files). `🐿️` for squirrel actions (stashing, saving, capturing).
 
 ---
 
