@@ -224,3 +224,64 @@ _core/_references/
     [companions only — no raw for in-session research]
 ```
 
+---
+
+## Wikilinks
+
+`[[walnut-name]]` is the syntax for linking walnuts together. It's a text convention — not rendered, not enforced by tooling. It's a marker that says "this references another walnut."
+
+**Where to use them:**
+- `key.md` frontmatter `links:` field — the canonical list of connections
+- `key.md` body — in the Connections and Key People sections
+- `log.md` entries — inline when referencing other walnuts ("discussed with [[ada-chen]]")
+- `insights.md` — when an insight relates to another walnut
+
+**Rules:**
+- If you add a `[[link]]` inline, also add it to key.md `links:` frontmatter
+- `walnut:find` searches for these across all walnuts
+- Person walnuts use `[[first-last]]` format (e.g., `[[ada-chen]]`)
+- Walnut names use kebab-case (e.g., `[[nova-station]]`, `[[glass-cathedral]]`)
+
+---
+
+## Archiving
+
+Nothing gets deleted. Archive is graduation — the walnut served its purpose.
+
+**When to archive:**
+- Walnut is complete (phase: complete, no open tasks)
+- Walnut is abandoned (no activity for 3+ months, conductor confirms)
+- Walnut has graduated to something else (experiment → venture)
+
+**How to archive:**
+1. Mirror the original path into `01_Archive/`
+   - `04_Ventures/old-project/` → `01_Archive/04_Ventures/old-project/`
+2. Move the entire folder (including `_core/`)
+3. The path tells you where it came from
+4. Log a final entry: "Archived. Reason: [why]"
+5. Update any walnuts that linked to this one (their `[[old-project]]` links still resolve — archived walnuts are still searchable)
+
+**What survives archiving:**
+- `walnut:find` still searches archived walnuts
+- `[[wikilinks]]` still resolve
+- `walnut:recall` still finds sessions that worked on it
+- The walnut just doesn't show on `walnut:world` dashboard
+
+**The archive enforcer hook** prevents deletion inside ALIVE folders. If someone tries `rm` on anything in the system, the hook blocks it and suggests archiving instead.
+
+---
+
+## Creating a New Walnut
+
+When a new walnut needs to be created (from save routing, capture, or explicit request):
+
+1. Determine the ALIVE domain: Life (`02_Life/`), Venture (`04_Ventures/`), Experiment (`05_Experiments/`)
+2. Create the folder with kebab-case name
+3. Create `_core/` with all 5 files from templates (key, now, log, insights, tasks)
+4. Create `_core/_squirrels/`, `_core/_working/`, `_core/_references/`
+5. Fill key.md frontmatter: type, goal, created, rhythm, tags
+6. Fill key.md body: description, key people, context
+7. Write first log entry: "Walnut created. [goal]"
+8. If it's a sub-walnut, set `parent: [[parent-name]]` in key.md frontmatter
+9. Add `[[new-walnut-name]]` to parent's key.md `links:` field
+

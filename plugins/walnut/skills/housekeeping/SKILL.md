@@ -26,7 +26,7 @@ triggers:
 
 # Housekeeping
 
-System housekeeping. Starts by scanning what squirrels have been up to, then surfaces issues one at a time.
+System housekeeping. Starts by scanning what squirrels have been up to, then surfaces issues one at a time with recommended fixes.
 
 Not a dashboard (that's world). Not a search (that's find). Not session recall (that's recall). Pure maintenance.
 
@@ -47,13 +47,11 @@ Before checking for problems, get the lay of the land. Scan `_core/_squirrels/` 
 ╰─
 ```
 
-This gives context before diving into issues. The squirrel knows what's been happening before it starts flagging problems.
-
 ---
 
-## Step 2: Issues (one at a time)
+## Step 2: Issues (one at a time, with recommended fix)
 
-In priority order:
+Each issue surfaces with context AND a recommended action. The conductor picks.
 
 ### 2a. Unsigned Squirrel Entries
 
@@ -62,6 +60,7 @@ In priority order:
 │  nova-station / squirrel:a3f7b2c1 — started Feb 21, never signed
 │  Has 4 stash items that were never saved.
 │
+│  Recommended: review the stash — it may contain unrouted decisions.
 │  → review stash / clear entry / skip
 ╰─
 ```
@@ -80,6 +79,7 @@ In priority order:
 │  midnight-frequency has been quiet for 18 days (rhythm: weekly)
 │  Last entry: Feb 5 — "locked episode 11 structure"
 │
+│  Recommended: open it and check if it's still active, or change rhythm.
 │  → open it / archive it / change rhythm / skip
 ╰─
 ```
@@ -89,9 +89,10 @@ In priority order:
 ```
 ╭─ 🐿️ housekeeping — orphan reference
 │  nova-station / _references/documents/raw/2026-02-15-vendor-proposal.pdf
-│  No companion file.
+│  No companion file. Can't scan without loading the full PDF.
 │
-│  → create companion / skip
+│  Recommended: create a companion with description + summary.
+│  → create companion now / skip
 ╰─
 ```
 
@@ -102,58 +103,59 @@ In priority order:
 │  glass-cathedral / _working/submission-draft-v0.1.md
 │  Last modified: Jan 15 — 39 days ago.
 │
+│  Recommended: if it's done, promote to v1. If it's dead, archive it.
 │  → promote to v1 / archive / delete / skip
 ╰─
 ```
 
-### 2e. key.md References Out of Sync
-
-```
-╭─ 🐿️ housekeeping — unindexed reference
-│  nova-station has 3 references not in key.md
-│
-│  → index all / review individually / skip
-╰─
-```
-
-### 2f. Tasks Overdue or Stale
+### 2e. Tasks Overdue or Stale
 
 ```
 ╭─ 🐿️ housekeeping — stale task
 │  nova-station / "Book ground control sim" — added Feb 10, no progress
 │
-│  → still relevant / remove / reprioritise / skip
+│  Recommended: check if it's still relevant. If blocked, note what's blocking it.
+│  → still relevant / remove / reprioritise / blocked (note why) / skip
 ╰─
 ```
 
-### 2g. Inputs Buffer (> 48 hours)
+### 2f. Inputs Buffer (> 48 hours)
 
 ```
 ╭─ 🐿️ housekeeping — unrouted input
-│  03_Inputs/ has 2 items older than 48 hours
+│  03_Inputs/ has 2 items older than 48 hours:
+│   - vendor-brochure.pdf (3 days)
+│   - meeting-notes-feb20.md (4 days)
 │
+│  Recommended: route these via walnut:capture — they may contain
+│  decisions or context that affects active walnuts.
 │  → route them / skip
 ╰─
 ```
 
-### 2h. now.md Zero-Context Failures
+### 2g. now.md Stale or Thin
+
+If now.md context paragraph is empty, hasn't been updated in 2+ weeks, or doesn't reflect the recent log entries.
+
+```
+╭─ 🐿️ housekeeping — thin now.md
+│  nova-station / now.md context paragraph is 1 sentence.
+│  Last 3 log entries cover: test window, shielding vendor, telemetry review.
+│
+│  Recommended: rewrite now.md to synthesise recent sessions.
+│  → rewrite now / skip
+╰─
+```
 
 ---
 
 ## Presentation
 
-**One at a time.** Surface the highest priority issue, let the conductor deal with it, then surface the next.
+**One at a time.** Surface the highest priority issue with a recommended fix. Let the conductor deal with it. Then surface the next.
 
 ```
 ╭─ 🐿️ housekeeping complete
-│  3 issues found, 2 resolved, 1 skipped
+│  5 issues found, 4 resolved, 1 skipped
 │  World is healthy.
 ╰─
 ```
-
-## When to Trigger
-
-- Suggested after every walnut:save checkpoint
-- Post-compaction
-- After a long silence (30+ minutes)
-- When the conductor seems lost ("wait, what was I doing?")

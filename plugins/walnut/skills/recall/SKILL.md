@@ -49,10 +49,10 @@ Two tiers of data. Always start with tier 1. Go to tier 2 on request or when dep
 **Tier 1 — Squirrel Entries** (`_core/_squirrels/*.yaml`)
 Structured, fast, indexed. Session ID, walnut, model, timestamps, stash items, working files, tags. Every squirrel leaves one of these.
 
-**Tier 2 — Session Transcripts** (`~/.claude/projects/<project>/<session-id>.jsonl`)
+**Tier 2 — Session Transcripts** (platform-specific, path stored in squirrel YAML `transcript_path:`)
 The full conversation. Every human message, every agent response, every tool call, every result. This is the deep context — the actual thinking, the back-and-forth, the nuance that didn't make it into the stash.
 
-The session_id in the squirrel YAML maps to the transcript filename. That's the bridge.
+The session-start hook discovers the transcript location and writes it to the squirrel YAML as `transcript_path:`. Recall reads this to find the full conversation. See the Transcript Discovery section below for platform-specific paths.
 
 ---
 

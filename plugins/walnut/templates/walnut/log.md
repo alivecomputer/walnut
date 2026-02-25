@@ -6,27 +6,42 @@ entry-count: 1
 summary: {{name}} created.
 ---
 
-<!-- LOG — Where it's been. The event spine.
+<!-- LOG — Where it's been. The event spine. Prepend only.
 
-     PREPEND ONLY. Newest entry goes right after this frontmatter.
-     Open the file, see what happened last. No scrolling to the bottom.
+     ENTRY STRUCTURE (use as many sections as relevant, omit empty ones):
 
-     Every entry is signed. Wrong entry? Add a correction ABOVE it.
-     Never edit history.
+     ## YYYY-MM-DDTHH:MM:SS — squirrel:session_id
 
-     At 50 entries or phase close → chapter. Synthesis moves to
-     _core/_chapters/chapter-nn.md. Log continues fresh.
+     [2-4 sentence narrative of what happened and why it matters]
 
-     ENTRY STRUCTURE:
-     Every log entry should include:
-     - What happened (brief narrative)
-     - Decisions made (with rationale — WHY, not just WHAT)
-     - Tasks created or completed
-     - References captured (if any)
-     - Next actions identified
+     ### Decisions
+     - **Decision name** — rationale (WHY this was chosen, what was considered)
 
-     The log entry is the primary record. A future squirrel should
-     be able to reconstruct the session from the log entry alone.
+     ### Work Done
+     - What was built, written, edited, shipped (concrete outputs with file paths)
+
+     ### Tasks
+     - [ ] New task created
+     - [x] Task completed (date)
+     - Reprioritised tasks with context
+
+     ### References Captured
+     - type: description — companion path
+
+     ### Quotes
+     - "Verbatim quote worth keeping" — attribution
+
+     ### Next
+     - What the next squirrel should pick up (feeds into now.md next:)
+
+     signed: squirrel:session_id
+
+     RULES:
+     - Prepend only. Newest at top.
+     - Every entry signed.
+     - Wrong entry? Correction above, never edit.
+     - At 50 entries or phase close → chapter.
+     - A future squirrel should reconstruct the session from the entry alone.
 -->
 
 ## {{date}} — squirrel:{{session_id}}
