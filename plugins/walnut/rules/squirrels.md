@@ -33,7 +33,7 @@ At the start of EVERY session, before doing anything else, the squirrel reads th
 2. `_core/now.md` — full file (current state, next action, context)
 3. `_core/tasks.md` — full file (work queue)
 4. `_core/insights.md` — frontmatter only (what domain knowledge sections exist)
-5. `_core/log.md` — frontmatter + last 2 entries (recent history)
+5. `_core/log.md` — frontmatter first (entry count, summary), then first ~100 lines to catch recent entries (they're prepended, so the top of the file IS the most recent). Read deeper if context demands it.
 6. `_core/_squirrels/` — scan for unsigned entries
 7. `_core/_working/` — **frontmatter only** (what drafts exist, not their full content)
 

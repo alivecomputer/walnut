@@ -28,7 +28,7 @@ When a walnut is active, read these in order:
 2. `_core/now.md` — full
 3. `_core/tasks.md` — full
 4. `_core/insights.md` — frontmatter
-5. `_core/log.md` — frontmatter + last 2 entries
+5. `_core/log.md` — frontmatter first, then first ~100 lines (recent entries are at the top)
 6. `_core/_squirrels/` — scan for unsigned
 7. `_core/_working/` — frontmatter only
 8. `_core/_references/` — frontmatter only
