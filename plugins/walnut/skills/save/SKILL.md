@@ -39,13 +39,23 @@ Save is NOT a termination. The session continues. Save can happen multiple times
 
 ## Flow
 
-### 1. Pre-Save Scan
+### 1. Read First (understand before acting)
+
+Before presenting the stash or writing anything, the squirrel reads:
+
+- `_core/now.md` — what was the previous `next:`? What was the context?
+- `_core/log.md` — first ~100 lines (recent entries — what have previous sessions covered?)
+- `_core/tasks.md` — current task queue
+
+This gives the squirrel the full picture BEFORE it starts routing. It knows what was expected this session, what previous sessions accomplished, and what the task state is. This makes everything that follows smarter — better routing suggestions, better now.md synthesis, better log entries that don't duplicate what's already recorded.
+
+### 2. Pre-Save Scan
 
 "Anything else before I save?"
 
 Then scan back through messages since last save for stash items the squirrel may have missed. Add them.
 
-### 2. Present Stash by Category
+### 3. Present Stash by Category
 
 Each category is a separate AskUserQuestion with options. Skip empty categories.
 
@@ -87,9 +97,9 @@ Each category is a separate AskUserQuestion with options. Skip empty categories.
 ```
 → AskUserQuestion: "Commit as evergreen" / "Just log it"
 
-### 3. Check next:
+### 4. Check next:
 
-Read current `now.md` next: field. Did we address it?
+The squirrel already read now.md in step 1. It knows what `next:` was. Did we address it?
 
 ```
 ╭─ 🐿️ next is changing
@@ -101,7 +111,7 @@ Read current `now.md` next: field. Did we address it?
 
 If previous next: was NOT completed and is being replaced, it moves to tasks.md with context.
 
-### 4. Write Log Entry
+### 5. Write Log Entry
 
 **Before writing anything else, prepend a signed entry to log.md.** This is the primary record of what happened. Use the log-entry template structure:
 
@@ -113,7 +123,7 @@ If previous next: was NOT completed and is being replaced, it moves to tasks.md 
 
 The log entry must be written BEFORE updating now.md. The log is truth. Everything else derives from it.
 
-### 5. Route
+### 6. Route
 
 For each confirmed stash item:
 - **Existing walnut** → prepend signed log entry
@@ -123,20 +133,31 @@ For each confirmed stash item:
 - **Insight** → add to appropriate `_core/insights.md` (only if confirmed as evergreen)
 - **Cross-walnut note** → dispatch to destination walnut log (brief entry, not full session)
 
-### 6. Update State
+### 7. Update State
 
-**Before rewriting now.md, re-read log.md** (at minimum the last 2-3 entries). This ensures the now.md context paragraph reflects the full picture, not just what happened in this session.
+The squirrel already read now.md and recent log entries in step 1. It has the full picture.
 
-**Protect existing context.** If the current session was minor (quick chat, small update) but the existing now.md has rich context from a previous deep session — do NOT overwrite it entirely. Merge the new information in. The test: is the new now.md MORE informative than the old one? If not, keep what was there and add to it.
+**now.md is a synthesis of recent history, not a report on this session.** The context paragraph should cover the last 3-5 log entries worth of context — what's been happening across sessions, not just what happened right now. A new squirrel reading now.md should understand the full current situation without touching the log.
 
-- `now.md` — phase, health, next, updated, squirrel, context paragraph (full replacement only if this session was substantive)
+**Protect existing context.** If this session was minor (quick chat, small update) but the existing now.md has rich context from a previous deep session — do NOT flatten it. Merge the new information in. The test: is the new now.md MORE informative than the old one? If not, keep what was there and layer the new stuff on top.
+
+- `now.md` — phase, health, next, updated, squirrel, context paragraph (synthesis of recent sessions)
 - `tasks.md` — add new, mark completed, update in-progress
 
-### 7. Zero-Context Check
+### 8. Integrity Check
 
-"Would a new squirrel have full context?"
+Not a vibe check. A concrete checklist. Run through each:
 
-If the answer isn't clearly yes — the log entry needs more detail, or now.md context paragraph needs updating. The squirrel fixes it before completing the save.
+- [ ] **now.md** — does the context paragraph reflect the full current picture (not just this session)?
+- [ ] **Log entry** — does it capture WHY decisions were made, not just WHAT?
+- [ ] **tasks.md** — are new tasks added, completed tasks marked, nothing stale left as active?
+- [ ] **References** — was any external content discussed this session that wasn't captured? Any research worth saving?
+- [ ] **Companions** — do all references have companions with `description:` in frontmatter?
+- [ ] **Insights** — did any standing domain knowledge surface that should be proposed as evergreen?
+- [ ] **People** — was anyone mentioned who should have context dispatched to their walnut?
+- [ ] **Working files** — are any drafts ready to promote? Any created this session that need signing?
+
+If anything fails, fix it before completing the save. This is the last gate.
 
 ### 7. Continue
 
