@@ -1,5 +1,6 @@
 ---
 type: document
+description: {{description}}
 author: {{author}}
 source: {{source}}
 date: {{date}}

@@ -1,5 +1,6 @@
 ---
 type: email
+description: {{description}}
 from: {{from}}
 to: {{to}}
 subject: {{subject}}

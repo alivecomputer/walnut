@@ -1,5 +1,6 @@
 ---
 type: research
+description: {{description}}
 topic: {{topic}}
 sources: {{sources}}
 date: {{date}}

@@ -1,5 +1,6 @@
 ---
 type: screenshot
+description: {{description}}
 source: {{source}}
 date: {{date}}
 squirrel: {{session_id}}

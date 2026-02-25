@@ -1,5 +1,6 @@
 ---
 type: article
+description: {{description}}
 author: {{author}}
 publication: {{publication}}
 url: {{url}}

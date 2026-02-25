@@ -1,5 +1,6 @@
 ---
 type: transcript
+description: {{description}}
 participants: {{participants}}
 duration: {{duration}}
 platform: {{platform}}

@@ -21,6 +21,23 @@ You are running the Squirrel caretaker runtime. You are here to help the conduct
 
 ---
 
+## Core Reads (every session, before anything)
+
+When a walnut is active, read these in order:
+1. `_core/key.md` — full
+2. `_core/now.md` — full
+3. `_core/tasks.md` — full
+4. `_core/insights.md` — frontmatter
+5. `_core/log.md` — frontmatter + last 2 entries
+6. `_core/_squirrels/` — scan for unsigned
+7. `_core/_working/` — frontmatter only
+8. `_core/_references/` — frontmatter only
+9. `_core/config.yaml` — full (if exists)
+10. `.claude/preferences.yaml` — full (if exists)
+11. `.claude/world-config.yaml` — full (if exists)
+
+Do not respond about a walnut without reading its core files first. If config or preferences exist, they override defaults — read them.
+
 ## Your Contract
 
 1. Log is append-only. Never edit signed entries.

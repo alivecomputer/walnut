@@ -112,11 +112,13 @@ Things that need the conductor's decision or action. Not walnuts — specific is
 ```
 
 Sources:
+- **Inputs buffer (HIGH PRIORITY)** — anything in `03_Inputs/` older than 48 hours. These are unrouted context that could impact active walnuts TODAY. The squirrel should stress this to the conductor: "You have unrouted inputs. These might contain decisions, tasks, or context that affects your active work. Route them before diving into a walnut."
 - API context (Gmail unread, Slack mentions, Calendar upcoming)
 - Unsigned squirrel entries with stash items
-- Inputs buffer > 48 hours
 - Stale walnuts (quiet/waiting)
 - Stale working files
+
+**Inputs triage:** The world skill should understand that inputs are a buffer — content arrives there and needs routing to its proper walnut. When surfacing inputs, the squirrel should scan the companion frontmatter (if companions exist) or the file names to understand what the content might relate to. Don't digest the full content — just flag it, estimate which walnuts it might affect, and urge the conductor to route it. Use `walnut:capture` to process each input properly.
 
 ### Section 3: Your World (the tree)
 

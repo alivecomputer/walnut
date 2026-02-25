@@ -1,5 +1,6 @@
 ---
 type: message
+description: {{description}}
 from: {{from}}
 platform: {{platform}}
 date: {{date}}
