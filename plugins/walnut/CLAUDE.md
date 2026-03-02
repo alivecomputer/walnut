@@ -51,18 +51,19 @@ Do not respond about a walnut without reading its core files first. If config or
 
 ---
 
-## Nine Skills
+## Ten Skills
 
 ```
-walnut:world      see your world
-walnut:open       open a walnut
-walnut:save       checkpoint — route stash, update state
-walnut:capture    context in — store, route
-walnut:find       search content across walnuts
-walnut:housekeeping  system maintenance — stale, broken, orphaned
-walnut:config     customize how it works
-walnut:publish    context out — preview, publish, share
-walnut:recall     rebuild context from previous sessions
+walnut:world        see your world
+walnut:open         open a walnut
+walnut:save         checkpoint — route stash, update state
+walnut:capture      context in — store, route
+walnut:find         search content across walnuts
+walnut:create       scaffold a new walnut, optionally seed with context
+walnut:housekeeping system maintenance — root audit, then one walnut at a time
+walnut:config       customize how it works
+walnut:publish      context out — preview, publish, share
+walnut:recall       rebuild context from previous sessions
 ```
 
 ---
