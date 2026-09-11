@@ -496,8 +496,21 @@ def _upgrade_v2_json(json_path):
     # Map v2 priority values to v3
     priority_map = {"normal": "todo", "urgent": "urgent", "active": "active"}
 
+    # Continue after the highest id already present in the file -- a
+    # counter starting at 1 collides with existing v3 ids in mixed
+    # files, and duplicate ids make id-based mutation destructive
+    # (t140: done/drop removed every task sharing the id).
+    max_existing = 0
+    for t in tasks:
+        tid = t.get("id")
+        if isinstance(tid, str) and tid.startswith("t"):
+            try:
+                max_existing = max(max_existing, int(tid[1:]))
+            except ValueError:
+                pass
+
     upgraded = []
-    counter = 1
+    counter = max_existing + 1
     for t in tasks:
         if "text" in t and "id" not in t:
             v2_priority = t.get("priority", "todo")
@@ -513,10 +526,10 @@ def _upgrade_v2_json(json_path):
                 "created": _today(),
                 "session": t.get("session", "migrated"),
             })
+            counter += 1
         else:
             # Already v3 format (mixed file), keep as-is
             upgraded.append(t)
-        counter += 1
 
     data["tasks"] = upgraded
     atomic_write_json(json_path, data)
@@ -599,16 +612,58 @@ def _find_task(walnut, task_id):
     """Find a task by ID across all tasks.json files.
 
     Returns (file_path, task_dict, data_dict) or exits with error.
+
+    Errors on an ambiguous id (more than one task shares it — a real
+    state on walnuts with mixed migration history, t140). Mutating
+    commands act on the returned object identity, so an ambiguous id
+    must never silently resolve to "first match": the caller would
+    mutate one task while the id-filter removal destroyed all of them.
     """
+    matches = []
     for tf in _all_task_files(walnut):
         data = _read_json(tf, "tasks", strict=False)
         if data is None:
             continue
         for task in data["tasks"]:
             if task.get("id") == task_id:
-                return tf, task, data
-    print("Error: task {} not found".format(task_id), file=sys.stderr)
-    sys.exit(1)
+                matches.append((tf, task, data))
+
+    if not matches:
+        print("Error: task {} not found".format(task_id), file=sys.stderr)
+        sys.exit(1)
+
+    if len(matches) > 1:
+        print(
+            "Error: {} tasks share id {} -- refusing to guess which one you mean:".format(
+                len(matches), task_id
+            ),
+            file=sys.stderr,
+        )
+        for tf, task, _data in matches:
+            print(
+                "  [{}] {}".format(
+                    os.path.relpath(tf, walnut), task.get("title", "(no title)")
+                ),
+                file=sys.stderr,
+            )
+        print(
+            "Duplicate ids come from pre-fix migrations. Re-key the duplicates "
+            "first (edit the tasks.json files directly), then retry.",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+
+    return matches[0]
+
+
+def _remove_task_by_identity(data, task):
+    """Remove exactly this task object from data["tasks"].
+
+    Never filter by id here: on a walnut with duplicate ids an id
+    filter deletes every task sharing the id while completed.json
+    records only one -- silent data loss (t140).
+    """
+    data["tasks"] = [t for t in data["tasks"] if t is not task]
 
 
 def _resolve_bundle_path(walnut, bundle):
@@ -967,8 +1022,8 @@ def cmd_done(args):
 
     tf, task, data = _find_task(walnut, args.id)
 
-    # Remove from source
-    data["tasks"] = [t for t in data["tasks"] if t.get("id") != args.id]
+    # Remove from source -- by object identity, never by id filter (t140)
+    _remove_task_by_identity(data, task)
     atomic_write_json(tf, data)
 
     # Add to completed.json
@@ -993,8 +1048,8 @@ def cmd_drop(args):
 
     tf, task, data = _find_task(walnut, args.id)
 
-    # Remove from source
-    data["tasks"] = [t for t in data["tasks"] if t.get("id") != args.id]
+    # Remove from source -- by object identity, never by id filter (t140)
+    _remove_task_by_identity(data, task)
     atomic_write_json(tf, data)
 
     # Add to completed.json
