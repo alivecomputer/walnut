@@ -14,7 +14,7 @@ NOT a database dump. NOT a flat list. A living view of their world, grouped by w
 
 ## Load Sequence
 
-1. **Read the injected `<WORLD_INDEX>`** — it's already in your session context from the SessionStart hook. Contains every walnut's type, goal, phase, rhythm, updated, people, links, tags, bundles, and parent relationships. Zero file reads needed. If `<WORLD_INDEX>` is not in context, fall back to reading `.alive/_index.yaml` directly.
+1. **Read `.alive/_index.yaml`** — one read, everything the dashboard needs: every walnut's type, goal, phase, rhythm, updated, people, links, tags, bundles, and parent relationships. The SessionStart hook injects `<WORLD_INDEX_BRIEF>` (names, paths, phases, people) which is enough to orient, but the dashboard's goal lines, rhythm warnings and bundle counts come from the full index file. Older plugin versions injected the full index as `<WORLD_INDEX>`; if that's in context, use it and skip the read.
 2. **If no index exists at all** — generate it first (`python3 "$ALIVE_PLUGIN_ROOT/scripts/generate-index.py" "$WORLD_ROOT"`), then read the output. Fall back to manual scanning only on first-time setup before the index infrastructure exists.
 3. **Freshness check** — read the `generated:` timestamp from the index. Display it in the dashboard header. If older than 10 minutes, show a warning. If older than 1 hour, suggest regeneration. This makes index staleness visible instead of invisible.
 4. Build the tree from the index — parent/child relationships from `parent:` field
@@ -69,7 +69,7 @@ When the background agent completes, surface the results:
 
 The triage agent gets the world index in its prompt so it knows every walnut, person, and active bundle. It matches by name, keywords, and file type patterns. It does NOT move files — it suggests. The human confirms.
 
-**DO NOT read preferences.yaml** — it's already injected at session start. **DO NOT read individual walnut files** (key.md, now.json, log.md) — the index has everything. **DO NOT read .alive/_squirrels/*.yaml files** — recent sessions are in the index under `recent_sessions:` and unsaved stash count is in `unsaved_with_stash:`. **DO NOT spawn Explore agents or subagents** for the dashboard — use the index and the one bash check above. The entire dashboard should render from data already in context plus 1 fast bash call (inputs listing).
+**DO NOT read preferences.yaml** — it's already injected at session start. **DO NOT read individual walnut files** (key.md, now.json, log.md) — the index has everything. **DO NOT read .alive/_squirrels/*.yaml files** — recent sessions are in the index under `recent_sessions:` and unsaved stash count is in `unsaved_with_stash:`. **DO NOT spawn Explore agents or subagents** for the dashboard — use the index and the one bash check above. The entire dashboard should render from the injected brief plus 1 index-file read plus 1 fast bash call (inputs listing).
 
 ## State Detection
 
