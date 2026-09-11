@@ -2,6 +2,24 @@
 
 All notable changes to the ALIVE Context System plugin are documented here.
 
+## [3.2.2] - 2026-09-11
+
+### Fixed
+
+- **Context-watch injection removed (issue #86):** the UserPromptSubmit hook no longer injects context-usage percentages or repeated rules refreshes into model context at 20/40/60/80% thresholds, and no longer dumps the world key and index at 60%+. Surfacing a context countdown makes the model manage its context instead of the task, and repeating instructions on a cadence breaks preserved thinking. Rules are stated once at session start.
+- **External-change message:** the "another session saved" notice no longer asks permission to re-read state (a read-only action) and names the actual changed files instead of hardcoded v3 paths, so v1/v2 walnuts are not sent to files that don't exist.
+- **v2 upgrade notice:** no longer fires on already-migrated worlds. Detection prunes `01_Archive/` and migration backups, and a leftover `03_Inputs/` alongside `03_Inbox/` no longer counts as a v2 marker. The long first-person developer message is replaced with one factual line naming the matched markers and the `/alive:system-upgrade` command.
+- **External-change detection works on large worlds (issue #87):** walnut resolution reads `.alive/_index.json` and caches per session instead of walking the whole world with `find` on every prompt — measured ~14s (killed by the 5s hook timeout) down to 149ms first resolution, 93ms cached, on a real 49-walnut world. Resolution prefers live walnuts over `01_Archive/` duplicates and accepts bare, quoted and path-form `walnut:` values from session records. Hardening: sanitized session ids in temp paths, stamp-before-scan closes the same-second mtime race, paths reach helper interpreters via environment variables, the `stat` probe validates output (BusyBox), and hook output goes through the full JSON encoder.
+- **Permissions declaration:** the `UserPromptSubmit` row in `PERMISSIONS.md` matches what the hook actually reads and writes after these changes.
+
+### Added
+
+- **Cross-session awareness re-homed (issue #88):** the unsaved-stash heads-up removed with the context-% trigger returns on a change-driven trigger — it rescans only when a session record actually changes. Sessions on the same walnut have their unsaved stash detailed; other walnuts appear as a one-line count with no stash content injected.
+
+### Changed
+
+- Regression tests pin all fixes (`test_issue_86_context_watch.py`, `test_v2_upgrade_notice.py`, `test_issue_87_88_detection.py`) — the issue-#86 and v2-notice tests verified to fail against the 3.2.1 hooks.
+
 ## [3.2.1] - 2026-08-07
 
 ### Fixed

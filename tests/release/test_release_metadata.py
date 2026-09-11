@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[2]
-EXPECTED_VERSION = "3.2.1"
+EXPECTED_VERSION = "3.2.2"
 EXPECTED_HOOK_COMMANDS = 14
 EXPECTED_HOOK_EVENTS = 5
 
@@ -28,7 +28,7 @@ def command_scripts(node: object) -> list[str]:
 
 
 class ReleaseMetadataContractTest(unittest.TestCase):
-    def test_all_public_product_versions_are_3_2_1(self) -> None:
+    def test_all_public_product_versions_are_3_2_2(self) -> None:
         marketplace = json.loads((ROOT / ".claude-plugin" / "marketplace.json").read_text())
         plugin = json.loads(
             (ROOT / "plugins" / "alive" / ".claude-plugin" / "plugin.json").read_text()
