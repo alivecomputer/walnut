@@ -2,6 +2,19 @@
 
 All notable changes to the ALIVE Context System plugin are documented here.
 
+## [3.2.2] - 2026-09-11
+
+### Fixed
+
+- **Context-watch injection removed (issue #86):** the UserPromptSubmit hook no longer injects context-usage percentages or repeated rules refreshes into model context at 20/40/60/80% thresholds, and no longer dumps the world key and index at 60%+. Surfacing a context countdown makes the model manage its context instead of the task, and repeating instructions on a cadence breaks preserved thinking. Rules are stated once at session start.
+- **External-change message:** the "another session saved" notice no longer asks permission to re-read state (a read-only action) and names the actual changed files instead of hardcoded v3 paths, so v1/v2 walnuts are not sent to files that don't exist.
+- **v2 upgrade notice:** no longer fires on already-migrated worlds. Detection prunes `01_Archive/` and migration backups, and a leftover `03_Inputs/` alongside `03_Inbox/` no longer counts as a v2 marker. The long first-person developer message is replaced with one factual line naming the matched markers and the `/alive:system-upgrade` command.
+- **Permissions declaration:** the `UserPromptSubmit` row in `PERMISSIONS.md` matches what the hook actually reads and writes after these changes.
+
+### Changed
+
+- Regression tests pin both fixes (`test_issue_86_context_watch.py`, `test_v2_upgrade_notice.py`) — each verified to fail against the 3.2.1 hooks.
+
 ## [3.2.1] - 2026-08-07
 
 ### Fixed
