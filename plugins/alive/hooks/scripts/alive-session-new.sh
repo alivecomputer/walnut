@@ -334,10 +334,85 @@ if [ -f "$GENERATOR" ] && [ "$ALIVE_JSON_RT" = "python3" ]; then
   touch "/tmp/alive-index-regen" 2>/dev/null || true
 fi
 
-# Read world index (.alive/_index.yaml) for injection -- walnut registry
+# World index brief for injection (issue #89) -- the model needs the
+# registry (what exists, where, who), not the full metadata. Names,
+# paths, phase and people fit in ~6KB where the full index runs 39KB+
+# on a mature world and scales with it. Goals, tags, capsule lists and
+# session summaries stay on disk (.alive/_index.yaml), one read away.
+# Falls back to the full index only when _index.json is missing.
 WORLD_INDEX_CONTENT=""
+WORLD_INDEX_JSON="$WORLD_ROOT/.alive/_index.json"
 WORLD_INDEX_FILE="$WORLD_ROOT/.alive/_index.yaml"
-if [ -f "$WORLD_INDEX_FILE" ]; then
+BRIEF=""
+if [ -f "$WORLD_INDEX_JSON" ]; then
+  if [ "$ALIVE_JSON_RT" = "python3" ]; then
+    BRIEF=$(ALIVE_INDEX="$WORLD_INDEX_JSON" python3 -c '
+import json, os
+try:
+    d = json.load(open(os.environ["ALIVE_INDEX"], encoding="utf-8"))
+except Exception:
+    raise SystemExit
+out = []
+w = d.get("walnuts") or {}
+entries = list(w.values()) if isinstance(w, dict) else list(w)
+by_domain = {}
+for e in entries:
+    if not isinstance(e, dict):
+        continue
+    path = (e.get("path") or "").strip()
+    if not path:
+        continue
+    name = e.get("name") or path.rstrip("/").rsplit("/", 1)[-1]
+    phase = e.get("phase") or ""
+    domain = "archive" if path.startswith("01_Archive") else (e.get("domain") or "other")
+    by_domain.setdefault(domain, []).append((name, path, phase))
+out.append(f"walnuts: {len(entries)}")
+for domain in sorted(by_domain):
+    rows = by_domain[domain]
+    if domain == "archive":
+        out.append(f"archive: {len(rows)} walnuts (not listed; read .alive/_index.yaml if needed)")
+        continue
+    out.append(f"{domain}:")
+    for name, path, phase in sorted(rows):
+        suffix = f"  [{phase}]" if phase else ""
+        out.append(f"  {name}  {path}{suffix}")
+p = d.get("people") or {}
+pentries = list(p.values()) if isinstance(p, dict) else list(p)
+pnames = []
+for e in pentries:
+    if not isinstance(e, dict):
+        continue
+    path = (e.get("path") or "").strip()
+    if path.startswith("01_Archive"):
+        continue
+    pnames.append(e.get("name") or path.rstrip("/").rsplit("/", 1)[-1])
+out.append(f"people ({len(pnames)}): " + ", ".join(sorted(set(pnames))))
+rs = d.get("recent_sessions") or []
+if rs:
+    out.append("recent_sessions:")
+    for s in rs[:3]:
+        if not isinstance(s, dict):
+            continue
+        summary = (s.get("summary") or "").strip().replace("\n", " ")
+        if len(summary) > 160:
+            summary = summary[:157] + "..."
+        date = s.get("date", "?")
+        wal = s.get("walnut") or "(no walnut)"
+        out.append(f"  {date}  {wal}  {summary}")
+stats = d.get("stats") or {}
+uws = stats.get("unsaved_with_stash") or d.get("unsaved_with_stash")
+if uws:
+    out.append(f"unsaved_with_stash: {uws}")
+out.append("Full registry with goals, tags, bundles and session history: .alive/_index.yaml (read on demand).")
+print("\n".join(out))
+' 2>/dev/null)
+  fi
+fi
+if [ -n "$BRIEF" ]; then
+  WORLD_INDEX_CONTENT="<WORLD_INDEX_BRIEF>
+$BRIEF
+</WORLD_INDEX_BRIEF>"
+elif [ -f "$WORLD_INDEX_FILE" ]; then
   WORLD_INDEX_CONTENT="<WORLD_INDEX>
 $(cat "$WORLD_INDEX_FILE")
 </WORLD_INDEX>"
